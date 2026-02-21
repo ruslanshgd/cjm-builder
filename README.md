@@ -4,7 +4,7 @@
 
 ---
 
-## RU {#ru}
+## RU
 
 Figma-плагин: Excel / расшифровка интервью → Customer Journey Map.
 
@@ -35,7 +35,7 @@ npm run watch
 
 ---
 
-## EN {#en}
+## EN
 
 Figma plugin: Excel / interview transcripts → Customer Journey Map.
 
