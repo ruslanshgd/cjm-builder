@@ -9,14 +9,14 @@ var I18N = {
     'nav.download': 'Скачать',
 
     'hero.badge': 'Бесплатный плагин для Figma',
-    'hero.title': 'Достань косяки дизайна из интервью, получив <span class="highlight">CJM с инсайтами</span>',
+    'hero.title': 'Достань косяки дизайна из интервью, получив <span class="highlight">CJM с&nbsp;инсайтами</span>',
     'hero.subtitle': 'Загрузи транскрипт интервью одного или нескольких пользователей, а через минуту получи инсайты по дизайну',
     'hero.cta.install': 'Скачать плагин',
     'hero.cta.start': 'Как начать',
     'hero.img.label': 'Скриншот: готовая CJM в Figma',
     'hero.img.desc': 'Полная карта пути пользователя с этапами, действиями, touchpoints, мыслями, эмоциями, цитатами, метриками и гипотезами. Показать со всеми включёнными секциями.',
 
-    'story.problem1': 'Строить CJM вручную — долго. Хочется тратить время на идеи, а не на раскраску ячеек.',
+    'story.problem1': 'Строить CJM вручную — долго. Хочется тратить время на идеи, а не на&nbsp;раскраску ячеек.',
     'story.problem2': 'Транскрипты лежат в файлах. Таблицы — в Excel или Google. Карту собирают по крупицам.',
     'story.problem3': 'А если транскрипт или таблица превращались в готовую карту за минуту?',
     'story.whatif': 'Один клик — и CJM уже в Figma, с этапами, экранами и инсайтами.',
@@ -27,13 +27,13 @@ var I18N = {
     'features.transcripts.title': 'Транскрипты интервью',
     'features.transcripts.desc': 'Сэкономить 2–3 часа. Загрузите .txt — AI извлечёт этапы, действия, мысли, эмоции и цитаты.',
     'features.excel.title': 'Таблицы Excel и CSV',
-    'features.excel.desc': 'Показать, что готовая таблица — уже CJM. Плагин распознает структуру и рисует карту. AI справится с «грязными» данными.',
+    'features.excel.desc': 'Показать, что готовая таблица — уже CJM. Плагин распознает структуру и рисует карту. AI&nbsp;справится с «грязными» данными.',
     'features.gsheets.title': 'Google Таблицы',
     'features.gsheets.desc': 'Вставьте ссылку — плагин сам подтянет данные и построит карту. Без копирования в Excel.',
     'features.aggregation.title': 'Агрегация нескольких интервью',
     'features.aggregation.desc': 'Объединить 5–10 интервью в одну CJM с Job Stories. AI сам находит общие паттерны.',
     'features.screens.title': 'Привязка экранов из Figma',
-    'features.screens.desc': 'Выделите фреймы — ссылки или превью под каждым этапом. Экран и этап связаны автоматически.',
+    'features.screens.desc': 'Выделите фреймы — ссылки или&nbsp;превью под каждым этапом. Экран и этап связаны автоматически.',
     'features.vision.title': 'Vision-аннотации',
     'features.vision.desc': 'AI ставит аннотации и стрелки прямо на макеты. Увидите, где пользователь путается или радуется.',
     'features.jobstory.title': 'Job Story (JTBD)',
@@ -44,13 +44,13 @@ var I18N = {
     'features.prompts.desc': 'Подстроить AI под продукт. Редактируйте промпты — меняйте логику извлечения.',
 
     'modes.label': 'Режимы экранов',
-    'modes.title': 'Три способа показать экраны на CJM',
+    'modes.title': 'Три способа показать экраны на&nbsp;CJM',
     'modes.subtitle': 'Выберите, как связать дизайн-макеты с этапами пути пользователя — от простых ссылок до AI-аннотаций поверх скриншотов.',
     'modes.links.img.label': 'Скриншот: CJM со ссылками',
     'modes.links.img.desc': 'CJM, где под каждым этапом — кликабельные ссылки на фреймы в Figma. Без картинок, компактный вид.',
     'modes.links.tag': 'Ссылки',
     'modes.links.title': 'Ссылки на фреймы',
-    'modes.links.desc': 'Под каждым этапом — кликабельные ссылки на оригинальные фреймы в Figma. Лёгкий и компактный вариант.',
+    'modes.links.desc': 'Под каждым этапом — кликабельные ссылки на оригинальные фреймы в Figma. Лёгкий и&nbsp;компактный вариант.',
     'modes.png.img.label': 'Скриншот: CJM с PNG-превью',
     'modes.png.img.desc': 'CJM с маленькими скриншотами экранов под каждым этапом. AI сопоставляет экраны с этапами по смыслу.',
     'modes.png.tag': 'Превью (PNG)',
@@ -60,11 +60,11 @@ var I18N = {
     'modes.vision.img.desc': 'Экраны с цветными карточками аннотаций слева и стрелками, указывающими на конкретные элементы интерфейса.',
     'modes.vision.tag': 'Vision-аннотации',
     'modes.vision.title': 'AI-комментарии на макетах',
-    'modes.vision.desc': 'GPT-4o Vision смотрит на каждый экран + транскрипт и расставляет аннотации со стрелками к конкретным элементам интерфейса.',
+    'modes.vision.desc': 'GPT-4o Vision смотрит на каждый экран + транскрипт и расставляет аннотации со&nbsp;стрелками к конкретным элементам интерфейса.',
 
     'settings.label': 'Интерфейс плагина',
     'settings.title': 'Простые настройки,<br>мощный результат',
-    'settings.subtitle': 'Две вкладки: «Создание» для запуска генерации и «Промпты» для тонкой настройки поведения AI.',
+    'settings.subtitle': 'Две вкладки: «Создание» для запуска генерации и&nbsp;«Промпты» для тонкой настройки поведения AI.',
     'settings.tab1.label': 'Вкладка «Создание»',
     'settings.tab1.title': 'Загрузите данные и выберите настройки',
     'settings.tab1.desc': 'Выберите источник — файл (xlsx, csv, txt, md) или Google Таблица. Укажите, откуда брать экраны и в каком режиме их показывать.',
@@ -258,6 +258,12 @@ var I18N = {
 
 var currentLang = 'ru';
 
+function decodeEntities(str) {
+  var div = document.createElement('div');
+  div.innerHTML = str;
+  return div.textContent || div.innerText || '';
+}
+
 function applyLanguage(lang) {
   var strings = I18N[lang];
   if (!strings) return;
@@ -266,7 +272,7 @@ function applyLanguage(lang) {
   document.querySelectorAll('[data-i18n]').forEach(function (el) {
     var key = el.getAttribute('data-i18n');
     if (strings[key] !== undefined) {
-      el.textContent = strings[key];
+      el.textContent = decodeEntities(strings[key]);
     }
   });
 
