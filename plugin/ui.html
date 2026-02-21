@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+/* ═══ Design tokens ═══ */
+:root {
+  --ink-black: #131b23;
+  --dusty-grape: #565676;
+  --periwinkle: #d8dcff;
+  --periwinkle-2: #aeadf0;
+  --barbie-pink: #f90093;
+  --bg: #ffffff;
+  --bg-secondary: #fafafc;
+  --danger: #e03e2d;
+  --success: #14ae5c;
+}
+
+/* ═══ Reset & base ═══ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  color: var(--ink-black);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ Tabs ═══ */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--periwinkle);
+  background: var(--bg);
+  padding: 0 20px;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 0;
+  margin-right: 24px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dusty-grape);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn:last-child { margin-right: 0; }
+.tab-btn svg { width: 14px; height: 14px; stroke: currentColor; }
+.tab-btn:hover { color: var(--ink-black); }
+.tab-btn.active {
+  color: var(--barbie-pink);
+  border-bottom-color: var(--barbie-pink);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══ Panel layout ═══ */
+.panel-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ═══ Plugin title ═══ */
+.plugin-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink-black);
+}
+
+/* ═══ Title row with lang switch ═══ */
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ═══ Language switch ═══ */
+.lang-switch {
+  display: flex;
+  background: var(--bg-secondary);
+  border: 1px solid var(--periwinkle);
+  border-radius: 6px;
+  padding: 2px;
+}
+.lang-btn {
+  padding: 3px 8px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--dusty-grape);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1.4;
+}
+.lang-btn:hover { color: var(--ink-black); }
+.lang-btn.active {
+  background: var(--barbie-pink);
+  color: #fff;
+}
+
+/* ═══ Section ═══ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--dusty-grape);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.field-label svg { width: 13px; height: 13px; stroke: currentColor; }
+
+.hint {
+  font-size: 11px;
+  color: var(--dusty-grape);
+  opacity: 0.7;
+  line-height: 1.45;
+}
+
+/* ═══ Radio pill group ═══ */
+.radio-group {
+  display: flex;
+  gap: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--periwinkle);
+  border-radius: 8px;
+  padding: 3px;
+  overflow: hidden;
+}
+
+.radio-group input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.radio-pill {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 8px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--dusty-grape);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+}
+.radio-pill svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+.radio-pill:hover {
+  color: var(--ink-black);
+}
+
+input[type="radio"]:checked + .radio-pill {
+  background: var(--bg);
+  color: var(--barbie-pink);
+  box-shadow: 0 1px 3px rgba(19, 27, 35, 0.08), 0 0 0 1px rgba(249, 0, 147, 0.12);
+}
+
+/* ═══ Inputs ═══ */
+input[type="text"],
+input[type="password"],
+input[type="url"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--periwinkle);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--ink-black);
+  background: var(--bg);
+  transition: border-color 0.15s;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--barbie-pink);
+  box-shadow: 0 0 0 3px rgba(249, 0, 147, 0.08);
+}
+input::placeholder {
+  color: var(--periwinkle-2);
+}
+
+/* ═══ File input ═══ */
+.file-drop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border: 1.5px dashed var(--periwinkle);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.file-drop:hover {
+  border-color: var(--periwinkle-2);
+  background: #f4f4ff;
+}
+.file-drop.has-file {
+  border-style: solid;
+  border-color: var(--periwinkle-2);
+  background: #f0f0fd;
+}
+.file-drop svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--periwinkle-2);
+  flex-shrink: 0;
+}
+.file-drop-text {
+  font-size: 12px;
+  color: var(--dusty-grape);
+}
+.file-drop-text strong {
+  color: var(--barbie-pink);
+  font-weight: 500;
+}
+.file-drop input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ═══ Checkbox toggle ═══ */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink-black);
+  cursor: pointer;
+}
+.toggle-row svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--periwinkle-2);
+  flex-shrink: 0;
+}
+.toggle-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--barbie-pink);
+  cursor: pointer;
+}
+
+/* ═══ Buttons ═══ */
+.btn-primary {
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--barbie-pink);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+}
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.985);
+}
+.btn-primary:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  color: var(--dusty-grape);
+  border: 1px solid var(--periwinkle);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.btn-secondary svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+}
+.btn-secondary:hover {
+  background: var(--periwinkle);
+  color: var(--ink-black);
+}
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* ═══ Textarea ═══ */
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--periwinkle);
+  border-radius: 8px;
+  font-family: 'SF Mono', 'Fira Code', Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink-black);
+  background: var(--bg);
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+textarea:focus {
+  outline: none;
+  border-color: var(--barbie-pink);
+  box-shadow: 0 0 0 3px rgba(249, 0, 147, 0.08);
+}
+
+/* ═══ Status ═══ */
+.status {
+  font-size: 11px;
+  color: var(--dusty-grape);
+  min-height: 16px;
+}
+.status.error { color: var(--danger); }
+.status.success { color: var(--success); }
+
+/* ═══ Divider ═══ */
+.divider {
+  height: 1px;
+  background: var(--periwinkle);
+  opacity: 0.5;
+}
+  </style>
+</head>
+<body>
+
+  <!-- ─── Tab bar ─── -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="main">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      <span data-i18n="tabCreate">Создание</span>
+    </button>
+    <button class="tab-btn" data-tab="prompts">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+      <span data-i18n="tabPrompts">Промпты</span>
+    </button>
+  </div>
+
+  <!-- ═══════════ Main tab ═══════════ -->
+  <div id="tab-main" class="tab-panel active">
+    <div class="panel-body">
+
+      <div class="title-row">
+        <div class="plugin-title" data-i18n="pluginTitle">Сборка CJM</div>
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+      </div>
+
+      <!-- Mode: radio pills -->
+      <div class="field">
+        <div class="field-label" data-i18n="source">Источник</div>
+        <div class="radio-group">
+          <input type="radio" name="inputMode" id="modeFile" value="file" checked>
+          <label class="radio-pill" for="modeFile">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 12v6"/><path d="m15 15-3-3-3 3"/></svg>
+            <span data-i18n="fromFile">Из файла</span>
+          </label>
+          <input type="radio" name="inputMode" id="modeSheets" value="sheets">
+          <label class="radio-pill" for="modeSheets">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+            <span data-i18n="googleSheets">Google таблицы</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- File section -->
+      <div id="fileSection" class="field">
+        <div class="field-label" data-i18n="file">Файл</div>
+        <div class="file-drop" id="fileDrop">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+          <span class="file-drop-text" id="fileDropText" data-i18n-html="fileDropText"><strong>Выберите файл</strong> или перетащите</span>
+          <input type="file" id="fileInput" accept=".xlsx,.xls,.csv,.txt,.md" />
+          <input type="file" id="fileInputMultiple" accept=".txt,.md" multiple style="position:absolute;inset:0;opacity:0;pointer-events:none" />
+        </div>
+        <div class="hint" data-i18n="fileFormats">xlsx, csv, txt, md</div>
+      </div>
+
+      <!-- Google Sheets section -->
+      <div id="sheetsSection" class="field" style="display:none">
+        <div class="field-label" data-i18n="sheetsUrlLabel">URL Google Таблицы</div>
+        <input type="url" id="sheetsUrl" data-i18n-ph="sheetsUrlPh" placeholder="https://docs.google.com/spreadsheets/d/..." />
+        <div class="hint" data-i18n="sheetsHint">Таблица должна быть доступна по ссылке</div>
+      </div>
+
+      <!-- Source type: radio pills (file mode only) -->
+      <div id="fileOptionsSection" class="field">
+        <div class="field-label" data-i18n="sourceType">Тип источника</div>
+        <div class="radio-group">
+          <input type="radio" name="sourceType" id="srcAuto" value="auto" checked>
+          <label class="radio-pill" for="srcAuto"><span data-i18n="auto">Авто</span></label>
+          <input type="radio" name="sourceType" id="srcExcel" value="excel">
+          <label class="radio-pill" for="srcExcel"><span data-i18n="excelOrCsv">Excel (xlsx) или CSV</span></label>
+          <input type="radio" name="sourceType" id="srcTranscript" value="transcript">
+          <label class="radio-pill" for="srcTranscript"><span data-i18n="transcriptTxtMd">Транскрипт .txt или .md</span></label>
+        </div>
+      </div>
+
+      <!-- AI for Excel -->
+      <div id="excelAiSection" class="field" style="display:none">
+        <label class="toggle-row">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
+          <input type="checkbox" id="useAIForExcel" />
+          <span data-i18n="aiForTable">AI для интерпретации таблицы</span>
+        </label>
+        <div class="hint" data-i18n="aiForTableHint">Для нестандартных или «грязных» таблиц</div>
+      </div>
+
+      <!-- Screens section (for transcript / excel / sheets) -->
+      <div id="screensSectionWrap" class="field" style="display:none">
+        <div class="field-label" data-i18n="screens">Экраны</div>
+        <div class="radio-group">
+          <input type="radio" name="screensSource" id="screensSelection" value="selection" checked>
+          <label class="radio-pill" for="screensSelection"><span data-i18n="fromSelection">Из выделения</span></label>
+          <input type="radio" name="screensSource" id="screensFromSection" value="section">
+          <label class="radio-pill" for="screensFromSection"><span data-i18n="fromSection">Из Section</span></label>
+          <input type="radio" name="screensSource" id="screensPage" value="page">
+          <label class="radio-pill" for="screensPage"><span data-i18n="fromPage">Со страницы</span></label>
+        </div>
+        <div class="radio-group" style="margin-top:6px">
+          <input type="radio" name="screensMode" id="screensLinks" value="links" checked>
+          <label class="radio-pill" for="screensLinks"><span data-i18n="links">Ссылки</span></label>
+          <input type="radio" name="screensMode" id="screensPng" value="png">
+          <label class="radio-pill" for="screensPng"><span data-i18n="previewPng">Превью (PNG)</span></label>
+        </div>
+        <div id="pngOnlyOptions" style="display:none; margin-top:6px">
+          <label class="toggle-row">
+            <input type="checkbox" id="optionScreenMatching" />
+            <span data-i18n="screenMatching">AI-сопоставление экранов с этапами</span>
+          </label>
+          <div class="hint" data-i18n="screenMatchingHint">С AI: экраны группируются по этапам CJM по смыслу названий, с аннотациями под каждым экраном</div>
+          <div id="visionAnnotationsWrap" style="display:none; margin-top:8px; padding:10px 12px; background:#f5f5ff; border-radius:8px; border:1px solid #dde;">
+            <label class="toggle-row">
+              <input type="checkbox" id="optionVisionAnnotations" />
+              <span data-i18n="visionAnnotations">Vision-аннотации на экранах</span>
+            </label>
+            <div class="hint" style="margin-top:4px" data-i18n="visionAnnotationsHint">AI смотрит на каждый PNG-экран + транскрипт и ставит стикеры с комментариями поверх макета. Использует GPT-4o Vision (~$0.01–0.02 на экран).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- API key -->
+      <div class="field">
+        <div class="field-label">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4a6.5 6.5 0 1 0-4-4Z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+          <span data-i18n="apiKeyLabel">OpenAI API ключ</span>
+        </div>
+        <input type="password" id="apiKey" placeholder="sk-..." />
+        <div class="hint" data-i18n="apiKeyHint">Для транскриптов, Google Sheets и Excel с AI</div>
+      </div>
+
+      <div style="display:flex; gap:8px; align-items:center">
+        <button id="generate" class="btn-primary" disabled style="flex:1" data-i18n="createCjm">Создать CJM</button>
+        <button id="cancelBtn" data-i18n="cancel" style="display:none; padding:0 14px; height:36px; border:1.5px solid #d44; color:#d44; background:#fff; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap">Отменить</button>
+      </div>
+
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ Prompts tab ═══════════ -->
+  <div id="tab-prompts" class="tab-panel">
+    <div class="panel-body">
+
+      <div class="plugin-title" data-i18n="systemPrompts">Системные промпты</div>
+      <div class="hint" data-i18n="systemPromptsHint">Редактируйте промпты для AI. Изменения сохраняются локально.</div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="extractionOptions">Опции извлечения (транскрипты)</div>
+        <label class="toggle-row">
+          <input type="checkbox" id="optionDuration" />
+          <span data-i18n="optionDuration">Учитывать длительность этапов (duration)</span>
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" id="optionChannels" />
+          <span data-i18n="optionChannels">Учитывать каналы и переходы (channel)</span>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="productAnalytics">Продуктовая аналитика (транскрипты)</div>
+        <label class="toggle-row">
+          <input type="checkbox" id="optionLifecycle" />
+          <span data-i18n="lifecycle">Жизненный цикл и ABCDX-сегмент</span>
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" id="optionActivation" />
+          <span data-i18n="activation">Активация, вовлечённость и adoption</span>
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" id="optionProductMetrics" />
+          <span data-i18n="productMetricsLabel">Метрики продукта и инсайты</span>
+        </label>
+        <div class="hint" data-i18n="productAnalyticsHint">Включённые слои дополняют системный промпт — AI добавит блок «Product Analytics» на CJM</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="transcriptPromptLabel">Промпт для транскриптов</div>
+        <textarea id="transcriptPrompt" rows="10" data-i18n-ph="transcriptPromptPh" placeholder="Системный промпт для обработки транскриптов..."></textarea>
+      </div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="jobStoryPromptLabel">Промпт для Job Story (JTBD)</div>
+        <textarea id="jobStoryPrompt" rows="5" data-i18n-ph="jobStoryPromptPh" placeholder="Фреймворк для извлечения Job Story из интервью..."></textarea>
+        <div class="hint" data-i18n="jobStoryHint">Добавляется к промпту транскриптов при извлечении цели пользователя</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="aggregatePromptLabel">Промпт для агрегации (несколько транскриптов)</div>
+        <textarea id="aggregatePrompt" rows="8" data-i18n-ph="aggregatePromptPh" placeholder="Промпт для объединения нескольких интервью в одну CJM..."></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="lifecyclePromptLabel">Промпт: Жизненный цикл и сегмент</div>
+        <textarea id="lifecyclePrompt" rows="6" data-i18n-ph="lifecyclePromptPh" placeholder="Промпт для определения lifecycle и ABCDX-сегмента..."></textarea>
+        <div class="hint" data-i18n="lifecycleHint">Подключается чекбоксом «Жизненный цикл и ABCDX-сегмент»</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="activationPromptLabel">Промпт: Активация и вовлечённость</div>
+        <textarea id="activationPrompt" rows="6" data-i18n-ph="activationPromptPh" placeholder="Промпт для анализа активации, engagement, adoption..."></textarea>
+        <div class="hint" data-i18n="activationHint">Подключается чекбоксом «Активация, вовлечённость и adoption»</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="productMetricsPromptLabel">Промпт: Метрики продукта</div>
+        <textarea id="productMetricsPrompt" rows="6" data-i18n-ph="productMetricsPromptPh" placeholder="Промпт для продуктовых инсайтов и метрик..."></textarea>
+        <div class="hint" data-i18n="productMetricsHint">Подключается чекбоксом «Метрики продукта и инсайты»</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="screenMatchingPromptLabel">Промпт: Сопоставление экранов</div>
+        <textarea id="screenMatchingPrompt" rows="6" data-i18n-ph="screenMatchingPromptPh" placeholder="Промпт для AI-сопоставления фреймов с этапами CJM..."></textarea>
+        <div class="hint" data-i18n="screenMatchingPromptHint">Подключается чекбоксом «AI-сопоставление экранов с этапами» в секции Экраны</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="visionPromptLabel">Промпт: Vision-аннотации</div>
+        <textarea id="visionAnnotationsPrompt" rows="8" data-i18n-ph="visionPromptPh" placeholder="Системный промпт для GPT-4o Vision..."></textarea>
+        <div class="hint" data-i18n="visionPromptHint">Подключается чекбоксом «Vision-аннотации на экранах». GPT-4o смотрит на PNG-скриншот экрана + транскрипт и расставляет стикеры.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <div class="field-label" data-i18n="tablePromptLabel">Промпт для таблиц</div>
+        <textarea id="tablePrompt" rows="8" data-i18n-ph="tablePromptPh" placeholder="Системный промпт для обработки таблиц..."></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button id="savePrompts" class="btn-primary" style="flex:1" data-i18n="save">Сохранить</button>
+        <button id="resetPrompts" class="btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          <span data-i18n="reset">Сбросить</span>
+        </button>
+      </div>
+
+      <div class="status" id="promptStatus"></div>
+    </div>
+  </div>
+
+  <script src="xlsx.full.min.js"></script>
+  <script>
+(function() {
+  try {
+
+    /* ─── Tab switching ─── */
+    var tabBtns = document.querySelectorAll('.tab-btn');
+    var tabPanels = document.querySelectorAll('.tab-panel');
+    for (var i = 0; i < tabBtns.length; i++) {
+      tabBtns[i].addEventListener('click', (function(btn) {
+        return function() {
+          for (var j = 0; j < tabBtns.length; j++) tabBtns[j].classList.remove('active');
+          for (var j = 0; j < tabPanels.length; j++) tabPanels[j].classList.remove('active');
+          btn.classList.add('active');
+          document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+        };
+      })(tabBtns[i]));
+    }
+
+    /* ─── Main tab elements ─── */
+    var fileInput = document.getElementById('fileInput');
+    var fileDrop = document.getElementById('fileDrop');
+    var fileDropText = document.getElementById('fileDropText');
+    var fileSection = document.getElementById('fileSection');
+    var sheetsSection = document.getElementById('sheetsSection');
+    var fileOptionsSection = document.getElementById('fileOptionsSection');
+    var excelAiSection = document.getElementById('excelAiSection');
+    var sheetsUrl = document.getElementById('sheetsUrl');
+    var useAIForExcel = document.getElementById('useAIForExcel');
+    var apiKeyInput = document.getElementById('apiKey');
+    var generateBtn = document.getElementById('generate');
+    var cancelBtn = document.getElementById('cancelBtn');
+    var statusEl = document.getElementById('status');
+
+    /* ─── Prompts tab elements ─── */
+    var transcriptPromptEl = document.getElementById('transcriptPrompt');
+    var jobStoryPromptEl = document.getElementById('jobStoryPrompt');
+    var aggregatePromptEl = document.getElementById('aggregatePrompt');
+    var tablePromptEl = document.getElementById('tablePrompt');
+    var lifecyclePromptEl = document.getElementById('lifecyclePrompt');
+    var activationPromptEl = document.getElementById('activationPrompt');
+    var productMetricsPromptEl = document.getElementById('productMetricsPrompt');
+    var screenMatchingPromptEl = document.getElementById('screenMatchingPrompt');
+    var visionAnnotationsPromptEl = document.getElementById('visionAnnotationsPrompt');
+    var savePromptsBtn = document.getElementById('savePrompts');
+    var resetPromptsBtn = document.getElementById('resetPrompts');
+    var promptStatusEl = document.getElementById('promptStatus');
+
+    var selectedFile = null;
+    var selectedFiles = [];
+
+    /* ═══════════ Default prompts — Russian ═══════════ */
+    var defaultTranscriptPrompt = 'Ты — UX-исследователь и эксперт по Customer Journey Map.\n\nТебе дан транскрипт пользовательского интервью. Твоя задача — проанализировать разговор и САМОСТОЯТЕЛЬНО построить CJM на основе того, что обсуждалось.\n\nКак анализировать:\n1. Прочитай весь разговор между интервьюером и респондентом.\n2. Определи, через какие этапы взаимодействия с продуктом/сервисом прошёл респондент (например: узнал о продукте → попробовал → столкнулся с проблемой → нашёл решение → стал постоянным пользователем).\n3. Для каждого этапа извлеки из слов респондента:\n   - actions: что конкретно делал пользователь (его действия, шаги)\n   - touchpoints: через какие каналы/интерфейсы он взаимодействовал (приложение, сайт, поддержка, соцсети и т.д.)\n   - experience: как он воспринимал происходящее, что ему нравилось/не нравилось\n   - thoughts: о чём думал, что его беспокоило, какие были сомнения или ожидания\n   - emotions: какие эмоции испытывал (радость, раздражение, разочарование, удивление и т.д.)\n   - quotes: 1–2 дословные цитаты респондента, иллюстрирующие опыт на этом этапе\n   - metrics: какие метрики/KPI могли бы это измерить (предположи на основе контекста)\n   - hypotheses: идеи для улучшения продукта на этом этапе (предложи на основе проблем респондента)\n\nЭтапов в транскрипте явно НЕТ — ты определяешь их сам, интерпретируя разговор.\n\nДополнительно: определи Job Story пользователя (цель, с которой он пришёл в продукт) в формате JTBD: When [situation] I want to [motivation] so I can [outcome]. Добавь в ответ поле jobStories — массив с одним объектом {situation, motivation, outcome}.\n\nФормат ответа — строго JSON:\n{\"jobStories\":[{\"situation\":\"...\",\"motivation\":\"...\",\"outcome\":\"...\"}],\"stages\":[{\"name\":\"Название этапа\",\"actions\":[\"...\"],\"touchpoints\":[\"...\"],\"experience\":[\"...\"],\"thoughts\":[\"...\"],\"emotions\":[\"...\"],\"quotes\":[\"...\"],\"illustrations\":[],\"metrics\":[\"...\"],\"hypotheses\":[\"...\"]}]}\n\nПравила:\n- Минимум 3 этапа, максимум 10.\n- Массивы могут быть пустыми [] если из разговора нельзя извлечь информацию для этого поля.\n- Язык = язык транскрипта.\n- Только JSON, никакого дополнительного текста.';
+    var defaultAggregatePrompt = 'Ты — UX-исследователь. Тебе даны несколько транскриптов пользовательских интервью (разделённых метками --- ИНТЕРВЬЮ N ---).\n\nТвоя задача: агрегировать инсайты из всех интервью и построить ОДНУ обобщённую Customer Journey Map, которая отражает типичный путь пользователя на основе данных из всех интервью.\n\nПравила агрегации:\n- Объединяй схожие этапы из разных интервью в один этап\n- Объединяй похожие действия, touchpoints, эмоции\n- Если респонденты по-разному описывают этап — формулируй обобщённо\n- Для actions, thoughts, emotions — собирай типичные формулировки из всех интервью\n- Минимум 3 этапа, максимум 10\n- Извлекай 1–2 характерные цитаты на этап (поле quotes)\n- Язык = язык транскриптов\n- Формат ответа — строго JSON: {\"jobStories\":[...],\"stages\":[...]}\n\nФормат этапа: {\"name\":\"...\",\"actions\":[\"...\"],\"touchpoints\":[\"...\"],\"experience\":[\"...\"],\"thoughts\":[\"...\"],\"emotions\":[\"...\"],\"quotes\":[\"...\"],\"illustrations\":[],\"metrics\":[\"...\"],\"hypotheses\":[\"...\"]}';
+    var defaultJobStoryPrompt = 'Ты — эксперт по Jobs-to-be-Done (JTBD). Из транскрипта пользовательского интервью извлекаешь Job Story.\n\nJob Story описывает цель пользователя в формате: When [situation] I want to [motivation] so I can [outcome].\n- situation: контекст, в котором находится пользователь (где, когда, какая задача/проблема)\n- motivation: что пользователь хочет сделать (действие, потребность)\n- outcome: зачем, какой результат или выгода\n\nАнализируй слова респондента. Не придумывай — извлекай из разговора. Язык = язык транскрипта.';
+    var defaultTablePrompt = 'Ты — эксперт по CJM. Из таблицы структурируешь Customer Journey Map.\n\nВажно: ты НЕ додумываешь данные. Ты работаешь ТОЛЬКО с тем, что есть в таблице.\n\nКак работать:\n1. Определи структуру таблицы: что является этапами (строки или колонки), а что атрибутами (действия, точки контакта, эмоции и т.д.).\n2. Маппинг колонок по смыслу: \"Действия\" → actions, \"Точки контакта\" → touchpoints, \"Эмоции\" → emotions, \"Болевые точки\" → experience, \"Возможности\" → hypotheses, \"Метрики\" → metrics и т.д.\n3. Если колонка не маппится ни на одно стандартное поле CJM — пропусти её.\n4. Если в ячейке несколько пунктов через \";\" или перенос строки — разбей на массив.\n\nЕсли в таблице нет ни одного этапа и ни одного действия/описания — верни:\n{\"error\":\"Таблица не содержит данных для построения CJM\"}\n\nФормат ответа — строго JSON:\n{\"stages\":[{\"name\":\"...\",\"actions\":[\"...\"],\"touchpoints\":[\"...\"],\"experience\":[\"...\"],\"thoughts\":[\"...\"],\"emotions\":[\"...\"],\"illustrations\":[],\"metrics\":[\"...\"],\"hypotheses\":[\"...\"]}]}\n\nПравила:\n- Бери только то, что есть в таблице. Пустые поля = пустые массивы [].\n- НЕ придумывай этапы, действия, эмоции — только реальные данные из таблицы.\n- Язык = язык данных таблицы.\n- Только JSON.';
+    var defaultLifecyclePrompt = 'Определи этап жизненного цикла респондента на основе его слов:\n- lifecycle: \"new\" (первый опыт, онбординг, только начал), \"active\" (регулярно использует), \"inactive\" (был активен, сейчас редко), \"churned\" (ушёл, объясняет почему), \"reactivated\" (вернулся после паузы).\n- activated: true/false — нашёл ли пользователь ценность в продукте (aha-момент).\n- segment (ABCDX): \"A\" (очень нужен продукт, платит быстро/много), \"B\" (нужен, но есть возражения), \"C\" (ценность невысокая, платит мало, много требований), \"D\" (задаёт вопросы, не покупает), \"X\" (готов много платить, но нужен особый продукт/фича).\n- segmentReasoning: краткое пояснение выбора сегмента (1–2 предложения).\n\nДобавь в JSON объект \"productAnalytics\" с полями: lifecycle, activated, segment, segmentReasoning.';
+    var defaultActivationPrompt = 'Проанализируй путь респондента с точки зрения активации, вовлечённости и принятия (adoption):\n- activationPoint: объект {stageName, description, reached} — на каком этапе CJM произошла активация (пользователь впервые получил ценность). Если не произошла — reached: false и описание почему.\n- engagementLevel: \"low\" | \"medium\" | \"high\" — оценка глубины, частоты и продолжительности использования.\n- adoptionStatus: \"none\" | \"partial\" | \"full\" — стал ли продукт частью рутины пользователя.\n- adoptionDetails: краткое пояснение (какие функции приняты, какие нет).\n\nДобавь эти поля в объект \"productAnalytics\" в JSON.';
+    var defaultProductMetricsPrompt = 'Для каждого этапа CJM предложи 1–2 продуктовые метрики в контексте юнит-экономики и продуктового роста. Рассуждай в терминах:\n- Этапы привлечения: UA (user acquisition), CPU (cost per user), каналы\n- Этапы активации: C1 (конверсия в ключевое действие), time-to-value, completion rate онбординга\n- Этапы использования: avg. payment count, frequency, retention rate, DAU/MAU\n- Этапы проблем/ухода: churn rate, NPS, причины оттока\n\nНе считай цифры — рассуждай, какие метрики применимы и почему. Формулируй метрики содержательно, с пояснением.\n\nТакже добавь в \"productAnalytics\" массив \"productInsights\" — 3–5 ключевых продуктовых инсайтов и рекомендаций на основе анализа всей CJM (сегмент пользователя, воронка, точки потерь, возможности роста).';
+    var defaultScreenMatchingPrompt = 'Тебе дан список этапов CJM (Customer Journey Map) и список имён фреймов (экранов интерфейса из Figma).\n\nСопоставь каждый фрейм с наиболее подходящим этапом CJM по смыслу названия.\n- Один этап может иметь несколько экранов.\n- Фрейм может не подходить ни к одному этапу — не включай его.\n- Учитывай, что названия фреймов — это названия экранов интерфейса (например: "App Store", "Каталог", "Корзина", "Оплата", "Трекинг заказа").\n- Учитывай, что названия этапов CJM — это шаги пользовательского пути (например: "Планирование закупки", "Сбор корзины", "Оформление заказа").\n\nДополнительно, для каждого сопоставленного фрейма напиши краткую аннотацию (1–2 предложения): что пользователь видит или делает на этом экране в контексте данного этапа CJM.\n\nВерни строго JSON:\n{\n  \"mapping\": {\"Название этапа\": [\"имя фрейма 1\", \"имя фрейма 2\"], ...},\n  \"screenAnnotations\": {\"имя фрейма 1\": \"Краткое описание\", \"имя фрейма 2\": \"Краткое описание\", ...}\n}\nИмена этапов и фреймов должны быть точно такими же, как в предоставленных списках.';
+    var defaultVisionAnnotationsPrompt = 'Ты — UX-исследователь. Тебе показан скриншот экрана приложения, контекст этапа CJM (действия, мысли, touchpoints, опыт пользователя) и фрагмент транскрипта интервью.\n\nТвоя задача — расставить от 3 до 5 аннотаций на экране, связывая элементы интерфейса с тем, что пользователь делает, думает и чувствует на этом этапе.\n\nИспользуй ВСЮ предоставленную информацию:\n- Контекст этапа CJM (действия, мысли, эмоции, touchpoints) — это уже проанализированные данные о том, что пользователь делает на этом экране\n- Транскрипт интервью — прямые слова пользователя\n- Скриншот — визуальные элементы интерфейса\n\nДля каждой аннотации:\n- tag: короткий заголовок (1–3 слова), например: \"Ценность\", \"Боль\", \"Барьер\", \"Aha-момент\", \"Путаница\", \"Желание\", \"Трение\", \"Активация\", \"Разочарование\", \"Удобство\", \"Навигация\", \"Первый контакт\" — или придумай подходящий\n- comment: 1–2 коротких предложения — что пользователь делает, думает или чувствует в этом месте экрана (на основе контекста этапа и/или транскрипта)\n- x: от 0.0 (лево) до 1.0 (право) — координата центра элемента интерфейса на скриншоте\n- y: от 0.0 (верх) до 1.0 (низ) — координата центра элемента интерфейса на скриншоте\n\nВАЖНО: Ты ДОЛЖЕН вернуть хотя бы 3 аннотации. Даже если прямой цитаты нет, используй контекст этапа CJM (действия, мысли, touchpoints) чтобы привязать аннотации к конкретным элементам интерфейса на экране.\n\nВерни строго JSON:\n{\"annotations\": [{\"tag\": \"...\", \"comment\": \"...\", \"x\": 0.5, \"y\": 0.3}, ...]}';
+    /* ═══════════ Default prompts — English ═══════════ */
+    var defaultTranscriptPromptEN = 'You are a UX researcher and Customer Journey Map expert.\n\nYou are given a user interview transcript. Your task is to analyze the conversation and INDEPENDENTLY build a CJM based on what was discussed.\n\nHow to analyze:\n1. Read the entire conversation between the interviewer and the respondent.\n2. Identify the stages of interaction with the product/service the respondent went through (e.g.: learned about the product → tried it → encountered a problem → found a solution → became a regular user).\n3. For each stage, extract from the respondent\'s words:\n   - actions: what specifically the user did (their actions, steps)\n   - touchpoints: through which channels/interfaces they interacted (app, website, support, social media, etc.)\n   - experience: how they perceived what was happening, what they liked/disliked\n   - thoughts: what they were thinking about, what worried them, what doubts or expectations they had\n   - emotions: what emotions they experienced (joy, irritation, disappointment, surprise, etc.)\n   - quotes: 1–2 verbatim quotes from the respondent illustrating the experience at this stage\n   - metrics: what metrics/KPIs could measure this (suggest based on context)\n   - hypotheses: ideas for product improvement at this stage (suggest based on the respondent\'s problems)\n\nThe stages are NOT explicitly stated in the transcript — you determine them yourself by interpreting the conversation.\n\nAdditionally: identify the user\'s Job Story (the goal they came to the product with) in JTBD format: When [situation] I want to [motivation] so I can [outcome]. Add a jobStories field to the response — an array with one object {situation, motivation, outcome}.\n\nResponse format — strictly JSON:\n{\"jobStories\":[{\"situation\":\"...\",\"motivation\":\"...\",\"outcome\":\"...\"}],\"stages\":[{\"name\":\"Stage name\",\"actions\":[\"...\"],\"touchpoints\":[\"...\"],\"experience\":[\"...\"],\"thoughts\":[\"...\"],\"emotions\":[\"...\"],\"quotes\":[\"...\"],\"illustrations\":[],\"metrics\":[\"...\"],\"hypotheses\":[\"...\"]}]}\n\nRules:\n- Minimum 3 stages, maximum 10.\n- Arrays can be empty [] if information for that field cannot be extracted from the conversation.\n- Language = language of the transcript.\n- Only JSON, no additional text.';
+    var defaultAggregatePromptEN = 'You are a UX researcher. You are given several user interview transcripts (separated by labels --- INTERVIEW N ---).\n\nYour task: aggregate insights from all interviews and build ONE consolidated Customer Journey Map that reflects the typical user journey based on data from all interviews.\n\nAggregation rules:\n- Merge similar stages from different interviews into one stage\n- Combine similar actions, touchpoints, emotions\n- If respondents describe a stage differently — formulate it in a generalized way\n- For actions, thoughts, emotions — collect typical formulations from all interviews\n- Minimum 3 stages, maximum 10\n- Extract 1–2 representative quotes per stage (quotes field)\n- Language = language of the transcripts\n- Response format — strictly JSON: {\"jobStories\":[...],\"stages\":[...]}\n\nStage format: {\"name\":\"...\",\"actions\":[\"...\"],\"touchpoints\":[\"...\"],\"experience\":[\"...\"],\"thoughts\":[\"...\"],\"emotions\":[\"...\"],\"quotes\":[\"...\"],\"illustrations\":[],\"metrics\":[\"...\"],\"hypotheses\":[\"...\"]}';
+    var defaultJobStoryPromptEN = 'You are a Jobs-to-be-Done (JTBD) expert. From a user interview transcript, you extract a Job Story.\n\nA Job Story describes the user\'s goal in the format: When [situation] I want to [motivation] so I can [outcome].\n- situation: the context the user is in (where, when, what task/problem)\n- motivation: what the user wants to do (action, need)\n- outcome: why, what result or benefit\n\nAnalyze the respondent\'s words. Do not invent — extract from the conversation. Language = transcript language.';
+    var defaultTablePromptEN = 'You are a CJM expert. You structure a Customer Journey Map from a table.\n\nImportant: you do NOT make up data. You work ONLY with what is in the table.\n\nHow to work:\n1. Determine the table structure: what are the stages (rows or columns) and what are the attributes (actions, touchpoints, emotions, etc.).\n2. Map columns by meaning: \"Actions\" → actions, \"Touchpoints\" → touchpoints, \"Emotions\" → emotions, \"Pain points\" → experience, \"Opportunities\" → hypotheses, \"Metrics\" → metrics, etc.\n3. If a column does not map to any standard CJM field — skip it.\n4. If a cell contains multiple items separated by \";\" or line breaks — split into an array.\n\nIf the table has no stages and no actions/descriptions — return:\n{\"error\":\"The table does not contain data for building a CJM\"}\n\nResponse format — strictly JSON:\n{\"stages\":[{\"name\":\"...\",\"actions\":[\"...\"],\"touchpoints\":[\"...\"],\"experience\":[\"...\"],\"thoughts\":[\"...\"],\"emotions\":[\"...\"],\"illustrations\":[],\"metrics\":[\"...\"],\"hypotheses\":[\"...\"]}]}\n\nRules:\n- Only take what is in the table. Empty fields = empty arrays [].\n- Do NOT invent stages, actions, emotions — only real data from the table.\n- Language = language of the table data.\n- Only JSON.';
+    var defaultLifecyclePromptEN = 'Determine the respondent\'s lifecycle stage based on their words:\n- lifecycle: "new" (first experience, onboarding, just started), "active" (uses regularly), "inactive" (was active, now rarely), "churned" (left, explains why), "reactivated" (returned after a break).\n- activated: true/false — has the user found value in the product (aha moment).\n- segment (ABCDX): "A" (product is essential, pays quickly/a lot), "B" (needs it but has objections), "C" (low value, pays little, many demands), "D" (asks questions, doesn\'t buy), "X" (willing to pay a lot but needs a special product/feature).\n- segmentReasoning: brief explanation of segment choice (1\u20132 sentences).\n\nAdd a "productAnalytics" object to JSON with fields: lifecycle, activated, segment, segmentReasoning.';
+    var defaultActivationPromptEN = 'Analyze the respondent\'s journey in terms of activation, engagement, and adoption:\n- activationPoint: object {stageName, description, reached} — at which CJM stage activation occurred (user first received value). If not reached — reached: false and description of why.\n- engagementLevel: "low" | "medium" | "high" — assessment of depth, frequency, and duration of usage.\n- adoptionStatus: "none" | "partial" | "full" — whether the product has become part of the user\'s routine.\n- adoptionDetails: brief explanation (which features are adopted, which are not).\n\nAdd these fields to the "productAnalytics" object in JSON.';
+    var defaultProductMetricsPromptEN = 'For each CJM stage, suggest 1–2 product metrics in the context of unit economics and product growth. Reason in terms of:\n- Acquisition stages: UA (user acquisition), CPU (cost per user), channels\n- Activation stages: C1 (conversion to key action), time-to-value, onboarding completion rate\n- Usage stages: avg. payment count, frequency, retention rate, DAU/MAU\n- Problem/churn stages: churn rate, NPS, churn reasons\n\nDo not calculate numbers — reason about which metrics are applicable and why. Formulate metrics substantively, with explanations.\n\nAlso add a \"productInsights\" array to \"productAnalytics\" — 3–5 key product insights and recommendations based on the full CJM analysis (user segment, funnel, loss points, growth opportunities).';
+    var defaultScreenMatchingPromptEN = 'You are given a list of CJM (Customer Journey Map) stages and a list of frame names (interface screens from Figma).\n\nMatch each frame to the most relevant CJM stage based on the meaning of its name.\n- One stage can have multiple screens.\n- A frame may not fit any stage — do not include it.\n- Consider that frame names are interface screen names (e.g.: "App Store", "Catalog", "Cart", "Checkout", "Order Tracking").\n- Consider that CJM stage names are user journey steps (e.g.: "Purchase Planning", "Cart Assembly", "Order Placement").\n\nAdditionally, for each matched frame, write a brief annotation (1\u20132 sentences): what the user sees or does on this screen in the context of the given CJM stage.\n\nReturn strictly JSON:\n{\n  "mapping": {"Stage name": ["frame name 1", "frame name 2"], ...},\n  "screenAnnotations": {"frame name 1": "Brief description", "frame name 2": "Brief description", ...}\n}\nStage and frame names must exactly match those in the provided lists.';
+    var defaultVisionAnnotationsPromptEN = 'You are a UX researcher. You are shown a screenshot of an application screen, the CJM stage context (actions, thoughts, touchpoints, user experience), and a fragment of an interview transcript.\n\nYour task is to place 3 to 5 annotations on the screen, linking interface elements with what the user does, thinks, and feels at this stage.\n\nUse ALL provided information:\n- CJM stage context (actions, thoughts, emotions, touchpoints) — this is already analyzed data about what the user does on this screen\n- Interview transcript — the user\'s direct words\n- Screenshot — visual interface elements\n\nFor each annotation:\n- tag: short heading (1–3 words), e.g.: \"Value\", \"Pain\", \"Barrier\", \"Aha moment\", \"Confusion\", \"Desire\", \"Friction\", \"Activation\", \"Disappointment\", \"Convenience\", \"Navigation\", \"First contact\" — or come up with an appropriate one\n- comment: 1–2 short sentences — what the user does, thinks, or feels at this point on the screen (based on stage context and/or transcript)\n- x: from 0.0 (left) to 1.0 (right) — center coordinate of the interface element on the screenshot\n- y: from 0.0 (top) to 1.0 (bottom) — center coordinate of the interface element on the screenshot\n\nIMPORTANT: You MUST return at least 3 annotations. Even if there is no direct quote, use the CJM stage context (actions, thoughts, touchpoints) to tie annotations to specific interface elements on the screen.\n\nReturn strictly JSON:\n{\"annotations\": [{\"tag\": \"...\", \"comment\": \"...\", \"x\": 0.5, \"y\": 0.3}, ...]}';
+    /* ═══════════ Prompt defaults map (per language) ═══════════ */
+    var defaultPromptsMap = {
+      ru: {
+        transcript: defaultTranscriptPrompt,
+        jobStory: defaultJobStoryPrompt,
+        aggregate: defaultAggregatePrompt,
+        table: defaultTablePrompt,
+        lifecycle: defaultLifecyclePrompt,
+        activation: defaultActivationPrompt,
+        productMetrics: defaultProductMetricsPrompt,
+        screenMatching: defaultScreenMatchingPrompt,
+        visionAnnotations: defaultVisionAnnotationsPrompt
+      },
+      en: {
+        transcript: defaultTranscriptPromptEN,
+        jobStory: defaultJobStoryPromptEN,
+        aggregate: defaultAggregatePromptEN,
+        table: defaultTablePromptEN,
+        lifecycle: defaultLifecyclePromptEN,
+        activation: defaultActivationPromptEN,
+        productMetrics: defaultProductMetricsPromptEN,
+        screenMatching: defaultScreenMatchingPromptEN,
+        visionAnnotations: defaultVisionAnnotationsPromptEN
+      },
+      ru_legacy: {
+        transcript: 'Ты — эксперт по Customer Journey Map. Извлекаешь CJM из транскриптов пользовательских интервью.',
+        table: 'Ты — эксперт по CJM. Преобразуешь таблицу в CJM.'
+      }
+    };
+
+    var promptElMap = [
+      { el: function(){ return transcriptPromptEl; },  key: 'transcript' },
+      { el: function(){ return jobStoryPromptEl; },     key: 'jobStory' },
+      { el: function(){ return aggregatePromptEl; },    key: 'aggregate' },
+      { el: function(){ return tablePromptEl; },        key: 'table' },
+      { el: function(){ return lifecyclePromptEl; },    key: 'lifecycle' },
+      { el: function(){ return activationPromptEl; },   key: 'activation' },
+      { el: function(){ return productMetricsPromptEl; }, key: 'productMetrics' },
+      { el: function(){ return screenMatchingPromptEl; }, key: 'screenMatching' },
+      { el: function(){ return visionAnnotationsPromptEl; }, key: 'visionAnnotations' }
+    ];
+
+    /* ═══════════ i18n translations ═══════════ */
+    var I18N = {
+      ru: {
+        tabCreate: 'Создание',
+        tabPrompts: 'Промпты',
+        pluginTitle: 'Сборка CJM',
+        source: 'Источник',
+        fromFile: 'Из файла',
+        googleSheets: 'Google таблицы',
+        file: 'Файл',
+        fileDropText: '<strong>Выберите файл</strong> или перетащите',
+        fileFormats: 'xlsx, csv, txt, md',
+        sheetsUrlLabel: 'URL Google Таблицы',
+        sheetsUrlPh: 'https://docs.google.com/spreadsheets/d/...',
+        sheetsHint: 'Таблица должна быть доступна по ссылке',
+        sourceType: 'Тип источника',
+        auto: 'Авто',
+        excelOrCsv: 'Excel (xlsx) или CSV',
+        transcriptTxtMd: 'Транскрипт .txt или .md',
+        aiForTable: 'AI для интерпретации таблицы',
+        aiForTableHint: 'Для нестандартных или «грязных» таблиц',
+        screens: 'Экраны',
+        fromSelection: 'Из выделения',
+        fromSection: 'Из Section',
+        fromPage: 'Со страницы',
+        links: 'Ссылки',
+        previewPng: 'Превью (PNG)',
+        screenMatching: 'AI-сопоставление экранов с этапами',
+        screenMatchingHint: 'С AI: экраны группируются по этапам CJM по смыслу названий, с аннотациями под каждым экраном',
+        visionAnnotations: 'Vision-аннотации на экранах',
+        visionAnnotationsHint: 'AI смотрит на каждый PNG-экран + транскрипт и ставит стикеры с комментариями поверх макета. Использует GPT-4o Vision (~$0.01–0.02 на экран).',
+        apiKeyLabel: 'OpenAI API ключ',
+        apiKeyHint: 'Для транскриптов, Google Sheets и Excel с AI',
+        createCjm: 'Создать CJM',
+        cancel: 'Отменить',
+        systemPrompts: 'Системные промпты',
+        systemPromptsHint: 'Редактируйте промпты для AI. Изменения сохраняются локально.',
+        extractionOptions: 'Опции извлечения (транскрипты)',
+        optionDuration: 'Учитывать длительность этапов (duration)',
+        optionChannels: 'Учитывать каналы и переходы (channel)',
+        productAnalytics: 'Продуктовая аналитика (транскрипты)',
+        lifecycle: 'Жизненный цикл и ABCDX-сегмент',
+        activation: 'Активация, вовлечённость и adoption',
+        productMetricsLabel: 'Метрики продукта и инсайты',
+        productAnalyticsHint: 'Включённые слои дополняют системный промпт — AI добавит блок «Product Analytics» на CJM',
+        transcriptPromptLabel: 'Промпт для транскриптов',
+        transcriptPromptPh: 'Системный промпт для обработки транскриптов...',
+        jobStoryPromptLabel: 'Промпт для Job Story (JTBD)',
+        jobStoryPromptPh: 'Фреймворк для извлечения Job Story из интервью...',
+        jobStoryHint: 'Добавляется к промпту транскриптов при извлечении цели пользователя',
+        aggregatePromptLabel: 'Промпт для агрегации (несколько транскриптов)',
+        aggregatePromptPh: 'Промпт для объединения нескольких интервью в одну CJM...',
+        lifecyclePromptLabel: 'Промпт: Жизненный цикл и сегмент',
+        lifecyclePromptPh: 'Промпт для определения lifecycle и ABCDX-сегмента...',
+        lifecycleHint: 'Подключается чекбоксом «Жизненный цикл и ABCDX-сегмент»',
+        activationPromptLabel: 'Промпт: Активация и вовлечённость',
+        activationPromptPh: 'Промпт для анализа активации, engagement, adoption...',
+        activationHint: 'Подключается чекбоксом «Активация, вовлечённость и adoption»',
+        productMetricsPromptLabel: 'Промпт: Метрики продукта',
+        productMetricsPromptPh: 'Промпт для продуктовых инсайтов и метрик...',
+        productMetricsHint: 'Подключается чекбоксом «Метрики продукта и инсайты»',
+        screenMatchingPromptLabel: 'Промпт: Сопоставление экранов',
+        screenMatchingPromptPh: 'Промпт для AI-сопоставления фреймов с этапами CJM...',
+        screenMatchingPromptHint: 'Подключается чекбоксом «AI-сопоставление экранов с этапами» в секции Экраны',
+        visionPromptLabel: 'Промпт: Vision-аннотации',
+        visionPromptPh: 'Системный промпт для GPT-4o Vision...',
+        visionPromptHint: 'Подключается чекбоксом «Vision-аннотации на экранах». GPT-4o смотрит на PNG-скриншот экрана + транскрипт и расставляет стикеры.',
+        tablePromptLabel: 'Промпт для таблиц',
+        tablePromptPh: 'Системный промпт для обработки таблиц...',
+        save: 'Сохранить',
+        reset: 'Сбросить',
+        processing: 'Обработка...',
+        cancelling: 'Отмена...',
+        cjmCreated: 'CJM создан!',
+        generationCancelled: 'Генерация отменена',
+        unsupportedFormat: 'Неподдерживаемый формат файла',
+        xlsxNotLoaded: 'Ошибка: библиотека XLSX не загружена. Используйте CSV формат.',
+        files: 'файлов',
+        saved: 'Сохранено!',
+        resetDone: 'Сброшено',
+        couldNotRead: 'Не удалось прочитать файл',
+        couldNotReadFiles: 'Не удалось прочитать файлы',
+        errorLabel: 'Ошибка'
+      },
+      en: {
+        tabCreate: 'Create',
+        tabPrompts: 'Prompts',
+        pluginTitle: 'CJM Builder',
+        source: 'Source',
+        fromFile: 'From file',
+        googleSheets: 'Google Sheets',
+        file: 'File',
+        fileDropText: '<strong>Choose file</strong> or drag & drop',
+        fileFormats: 'xlsx, csv, txt, md',
+        sheetsUrlLabel: 'Google Sheets URL',
+        sheetsUrlPh: 'https://docs.google.com/spreadsheets/d/...',
+        sheetsHint: 'Sheet must be shared via link',
+        sourceType: 'Source type',
+        auto: 'Auto',
+        excelOrCsv: 'Excel (xlsx) or CSV',
+        transcriptTxtMd: 'Transcript .txt or .md',
+        aiForTable: 'AI for table interpretation',
+        aiForTableHint: 'For non-standard or messy tables',
+        screens: 'Screens',
+        fromSelection: 'From selection',
+        fromSection: 'From Section',
+        fromPage: 'From page',
+        links: 'Links',
+        previewPng: 'Preview (PNG)',
+        screenMatching: 'AI screen-to-stage matching',
+        screenMatchingHint: 'With AI: screens grouped by CJM stages based on name semantics, with annotations under each screen',
+        visionAnnotations: 'Vision annotations on screens',
+        visionAnnotationsHint: 'AI analyzes each PNG screen + transcript and places annotation stickers on the mockup. Uses GPT-4o Vision (~$0.01–0.02 per screen).',
+        apiKeyLabel: 'OpenAI API key',
+        apiKeyHint: 'For transcripts, Google Sheets and AI-enabled Excel',
+        createCjm: 'Create CJM',
+        cancel: 'Cancel',
+        systemPrompts: 'System prompts',
+        systemPromptsHint: 'Edit AI prompts. Changes are saved locally.',
+        extractionOptions: 'Extraction options (transcripts)',
+        optionDuration: 'Include stage duration',
+        optionChannels: 'Include channels & transitions',
+        productAnalytics: 'Product analytics (transcripts)',
+        lifecycle: 'Lifecycle & ABCDX segment',
+        activation: 'Activation, engagement & adoption',
+        productMetricsLabel: 'Product metrics & insights',
+        productAnalyticsHint: 'Enabled layers extend the system prompt \u2014 AI will add a "Product Analytics" block to the CJM',
+        transcriptPromptLabel: 'Transcript prompt',
+        transcriptPromptPh: 'System prompt for transcript processing...',
+        jobStoryPromptLabel: 'Job Story (JTBD) prompt',
+        jobStoryPromptPh: 'Framework for extracting Job Stories from interviews...',
+        jobStoryHint: 'Added to transcript prompt when extracting user goals',
+        aggregatePromptLabel: 'Aggregation prompt (multiple transcripts)',
+        aggregatePromptPh: 'Prompt for combining multiple interviews into one CJM...',
+        lifecyclePromptLabel: 'Prompt: Lifecycle & segment',
+        lifecyclePromptPh: 'Prompt for lifecycle & ABCDX segment analysis...',
+        lifecycleHint: 'Enabled by "Lifecycle & ABCDX segment" checkbox',
+        activationPromptLabel: 'Prompt: Activation & engagement',
+        activationPromptPh: 'Prompt for activation, engagement, adoption analysis...',
+        activationHint: 'Enabled by "Activation, engagement & adoption" checkbox',
+        productMetricsPromptLabel: 'Prompt: Product metrics',
+        productMetricsPromptPh: 'Prompt for product insights and metrics...',
+        productMetricsHint: 'Enabled by "Product metrics & insights" checkbox',
+        screenMatchingPromptLabel: 'Prompt: Screen matching',
+        screenMatchingPromptPh: 'Prompt for AI matching frames to CJM stages...',
+        screenMatchingPromptHint: 'Enabled by "AI screen-to-stage matching" checkbox in Screens section',
+        visionPromptLabel: 'Prompt: Vision annotations',
+        visionPromptPh: 'System prompt for GPT-4o Vision...',
+        visionPromptHint: 'Enabled by "Vision annotations on screens" checkbox. GPT-4o analyzes the PNG screenshot + transcript and places stickers.',
+        tablePromptLabel: 'Table prompt',
+        tablePromptPh: 'System prompt for table processing...',
+        save: 'Save',
+        reset: 'Reset',
+        processing: 'Processing...',
+        cancelling: 'Cancelling...',
+        cjmCreated: 'CJM created!',
+        generationCancelled: 'Generation cancelled',
+        unsupportedFormat: 'Unsupported file format',
+        xlsxNotLoaded: 'Error: XLSX library not loaded. Use CSV format.',
+        files: 'files',
+        saved: 'Saved!',
+        resetDone: 'Reset done',
+        couldNotRead: 'Could not read file',
+        couldNotReadFiles: 'Could not read files',
+        errorLabel: 'Error'
+      }
+    };
+
+    /* ═══════════ Language state ═══════════ */
+    var currentLang = 'ru';
+    try { currentLang = localStorage.getItem('cjm_lang') || 'ru'; } catch(e) {}
+
+    function T(key) { return (I18N[currentLang] && I18N[currentLang][key]) || key; }
+
+    function promptFingerprint(s) {
+      return s.replace(/\s+/g, ' ').trim().substring(0, 40);
+    }
+
+    function applyLanguage(lang) {
+      var oldLang = currentLang;
+
+      /* Switch prompt textarea defaults if they match ANY language default
+         (uses first-80-chars fingerprint to tolerate minor version changes) */
+      for (var p = 0; p < promptElMap.length; p++) {
+        var pm = promptElMap[p];
+        var textarea = pm.el();
+        var curFP = promptFingerprint(textarea.value);
+        var isDefault = false;
+        for (var lk in defaultPromptsMap) {
+          if (defaultPromptsMap[lk][pm.key] && curFP === promptFingerprint(defaultPromptsMap[lk][pm.key])) {
+            isDefault = true;
+            break;
+          }
+        }
+        if (isDefault) {
+          textarea.value = defaultPromptsMap[lang][pm.key];
+        }
+      }
+
+      currentLang = lang;
+
+      /* Update toggle buttons */
+      var langBtns = document.querySelectorAll('.lang-btn');
+      for (var b = 0; b < langBtns.length; b++) {
+        langBtns[b].classList.toggle('active', langBtns[b].getAttribute('data-lang') === lang);
+      }
+
+      /* data-i18n → textContent */
+      var textEls = document.querySelectorAll('[data-i18n]');
+      for (var t = 0; t < textEls.length; t++) {
+        var key = textEls[t].getAttribute('data-i18n');
+        if (I18N[lang][key] !== undefined) textEls[t].textContent = I18N[lang][key];
+      }
+
+      /* data-i18n-ph → placeholder */
+      var phEls = document.querySelectorAll('[data-i18n-ph]');
+      for (var ph = 0; ph < phEls.length; ph++) {
+        var key = phEls[ph].getAttribute('data-i18n-ph');
+        if (I18N[lang][key] !== undefined) phEls[ph].placeholder = I18N[lang][key];
+      }
+
+      /* data-i18n-html → innerHTML (skip file drop when file is selected) */
+      var htmlEls = document.querySelectorAll('[data-i18n-html]');
+      for (var h = 0; h < htmlEls.length; h++) {
+        var key = htmlEls[h].getAttribute('data-i18n-html');
+        if (key === 'fileDropText' && fileDrop.classList.contains('has-file')) {
+          if (selectedFiles.length > 1) {
+            htmlEls[h].innerHTML = '<strong>' + selectedFiles.length + ' ' + I18N[lang].files + '</strong>';
+          }
+          continue;
+        }
+        if (I18N[lang][key] !== undefined) htmlEls[h].innerHTML = I18N[lang][key];
+      }
+
+      try { localStorage.setItem('cjm_lang', lang); } catch(e) {}
+    }
+
+    /* ─── Language toggle click ─── */
+    var langBtns = document.querySelectorAll('.lang-btn');
+    for (var lb = 0; lb < langBtns.length; lb++) {
+      langBtns[lb].addEventListener('click', (function(btn) {
+        return function() {
+          var lang = btn.getAttribute('data-lang');
+          if (lang !== currentLang) applyLanguage(lang);
+        };
+      })(langBtns[lb]));
+    }
+
+    /* Pre-fill textareas with current language defaults */
+    transcriptPromptEl.value = defaultPromptsMap[currentLang].transcript;
+    jobStoryPromptEl.value = defaultPromptsMap[currentLang].jobStory;
+    aggregatePromptEl.value = defaultPromptsMap[currentLang].aggregate;
+    tablePromptEl.value = defaultPromptsMap[currentLang].table;
+    lifecyclePromptEl.value = defaultPromptsMap[currentLang].lifecycle;
+    activationPromptEl.value = defaultPromptsMap[currentLang].activation;
+    productMetricsPromptEl.value = defaultPromptsMap[currentLang].productMetrics;
+    screenMatchingPromptEl.value = defaultPromptsMap[currentLang].screenMatching;
+    visionAnnotationsPromptEl.value = defaultPromptsMap[currentLang].visionAnnotations;
+
+    /* Apply language on load */
+    applyLanguage(currentLang);
+
+    /* ─── Radio helpers ─── */
+    function getInputMode() {
+      var el = document.querySelector('input[name="inputMode"]:checked');
+      return el ? el.value : 'file';
+    }
+    function getSourceType() {
+      var el = document.querySelector('input[name="sourceType"]:checked');
+      return el ? el.value : 'auto';
+    }
+
+    function setStatus(msg, isError) {
+      statusEl.textContent = msg;
+      statusEl.className = 'status' + (isError ? ' error' : '');
+    }
+
+    function setPromptStatus(msg, type) {
+      promptStatusEl.textContent = msg;
+      promptStatusEl.className = 'status' + (type === 'error' ? ' error' : type === 'success' ? ' success' : '');
+    }
+
+    function updateUI() {
+      var isFile = getInputMode() === 'file';
+      var st = getSourceType();
+      fileInput.multiple = isFile && st === 'transcript';
+      fileInput.accept = st === 'transcript' ? '.txt,.md' : (st === 'excel' ? '.xlsx,.xls,.csv' : '.xlsx,.xls,.csv,.txt,.md');
+      fileSection.style.display = isFile ? '' : 'none';
+      sheetsSection.style.display = isFile ? 'none' : '';
+      fileOptionsSection.style.display = isFile ? '' : 'none';
+      excelAiSection.style.display = (isFile && st === 'excel') ? '' : 'none';
+      var needsScreens = (isFile && (st === 'transcript' || st === 'excel' || st === 'auto')) || !isFile;
+      document.getElementById('screensSectionWrap').style.display = needsScreens ? '' : 'none';
+      if (typeof updatePngOnlyOptions === 'function') updatePngOnlyOptions();
+
+      if (!isFile) {
+        generateBtn.disabled = !sheetsUrl.value.trim();
+      } else {
+        var hasFiles = (fileInput.files && fileInput.files.length > 0) || !!selectedFile;
+        generateBtn.disabled = !hasFiles;
+      }
+    }
+
+    /* ─── Event listeners for radio buttons ─── */
+    var modeRadios = document.querySelectorAll('input[name="inputMode"]');
+    for (var i = 0; i < modeRadios.length; i++) {
+      modeRadios[i].addEventListener('change', updateUI);
+    }
+    var srcRadios = document.querySelectorAll('input[name="sourceType"]');
+    for (var i = 0; i < srcRadios.length; i++) {
+      srcRadios[i].addEventListener('change', updateUI);
+    }
+    sheetsUrl.addEventListener('input', updateUI);
+
+    /* Show pngOnlyOptions only when PNG mode is selected */
+    function updatePngOnlyOptions() {
+      var pngSelected = document.getElementById('screensPng').checked;
+      document.getElementById('pngOnlyOptions').style.display = pngSelected ? '' : 'none';
+      if (!pngSelected) {
+        document.getElementById('optionScreenMatching').checked = false;
+        document.getElementById('optionVisionAnnotations').checked = false;
+        document.getElementById('visionAnnotationsWrap').style.display = 'none';
+      }
+    }
+    document.getElementById('screensLinks').addEventListener('change', updatePngOnlyOptions);
+    document.getElementById('screensPng').addEventListener('change', updatePngOnlyOptions);
+    updatePngOnlyOptions();
+
+    /* Show Vision wrap only when AI screen matching is checked */
+    function updateVisionWrap() {
+      var checked = document.getElementById('optionScreenMatching').checked;
+      document.getElementById('visionAnnotationsWrap').style.display = checked ? '' : 'none';
+      if (!checked) document.getElementById('optionVisionAnnotations').checked = false;
+    }
+    document.getElementById('optionScreenMatching').addEventListener('change', updateVisionWrap);
+    updateVisionWrap();
+
+    fileInput.addEventListener('change', function(e) {
+      var files = e.target.files || [];
+      selectedFile = files[0] || null;
+      selectedFiles = Array.from(files);
+      if (files.length > 0) {
+        generateBtn.disabled = false;
+        fileDropText.innerHTML = files.length > 1
+          ? '<strong>' + files.length + ' ' + T('files') + '</strong>'
+          : '<strong>' + (selectedFile ? selectedFile.name : '') + '</strong>';
+        fileDrop.classList.add('has-file');
+        setStatus('');
+      } else {
+        generateBtn.disabled = true;
+        fileDropText.innerHTML = I18N[currentLang].fileDropText;
+        fileDrop.classList.remove('has-file');
+        setStatus('');
+      }
+      updateUI();
+    });
+
+    function setGenerating(active) {
+      generateBtn.disabled = active;
+      cancelBtn.style.display = active ? '' : 'none';
+    }
+
+    cancelBtn.addEventListener('click', function() {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+      setGenerating(false);
+      setStatus(T('cancelling'), false);
+    });
+
+    generateBtn.addEventListener('click', function() {
+      if (generateBtn.disabled) return;
+
+      if (getInputMode() === 'sheets') {
+        var url = sheetsUrl.value.trim();
+        if (!url) return;
+        setStatus(T('processing'));
+        setGenerating(true);
+        var src = document.querySelector('input[name="screensSource"]:checked');
+        var mode = document.querySelector('input[name="screensMode"]:checked');
+        parent.postMessage({
+          pluginMessage: {
+            type: 'googleSheets',
+            url: url,
+            apiKey: apiKeyInput.value.trim() || undefined,
+            screensSource: src ? src.value : 'none',
+            screensMode: mode ? mode.value : 'links',
+            includeScreenMatching: document.getElementById('optionScreenMatching').checked,
+            screenMatchingPrompt: screenMatchingPromptEl.value || undefined,
+            includeVisionAnnotations: document.getElementById('optionVisionAnnotations').checked,
+            visionPrompt: visionAnnotationsPromptEl.value || undefined
+          }
+        }, '*');
+        return;
+      }
+
+      if (!selectedFile) return;
+
+      var ext = (selectedFile.name.match(/\.([^.]+)$/) || [])[1] || '';
+      var st = getSourceType();
+      var isExcel = st === 'excel' ||
+        (st === 'auto' && /^(xlsx|xls|csv)$/i.test(ext));
+      var isTranscript = st === 'transcript' ||
+        (st === 'auto' && /^(txt|md)$/i.test(ext));
+
+      setStatus(T('processing'));
+      setGenerating(true);
+
+      var transcriptOptions = isTranscript ? {
+        includeDuration: document.getElementById('optionDuration').checked,
+        includeChannels: document.getElementById('optionChannels').checked,
+        includeLifecycle: document.getElementById('optionLifecycle').checked,
+        includeActivation: document.getElementById('optionActivation').checked,
+        includeProductMetrics: document.getElementById('optionProductMetrics').checked
+      } : undefined;
+      var screensSrc = document.querySelector('input[name="screensSource"]:checked');
+      var screensModeEl = document.querySelector('input[name="screensMode"]:checked');
+      var screensOptions = { source: screensSrc ? screensSrc.value : 'none', mode: screensModeEl ? screensModeEl.value : 'links' };
+
+      if (isExcel) {
+        handleExcel(selectedFile, screensOptions);
+      } else if (isTranscript) {
+        if (selectedFiles.length > 1) {
+          handleMultipleTranscripts(selectedFiles, transcriptOptions, jobStoryPromptEl.value, aggregatePromptEl.value, screensOptions);
+      } else {
+          handleTranscript(selectedFile, transcriptOptions, jobStoryPromptEl.value, screensOptions);
+        }
+      } else {
+        setStatus(T('unsupportedFormat'), true);
+        setGenerating(false);
+      }
+    });
+
+    /* ─── Inline CSV parser (no XLSX dependency needed) ─── */
+    function parseCSVText(text) {
+      var sep = (text.indexOf(';') >= 0 && (text.indexOf(';') < text.indexOf(',') || text.indexOf(',') < 0)) ? ';' : ',';
+      var rows = [];
+      var lines = text.split(/\r?\n/);
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (!line) continue;
+        var row = [];
+        var inQuote = false;
+        var field = '';
+        for (var c = 0; c < line.length; c++) {
+          var ch = line[c];
+          if (inQuote) {
+            if (ch === '"' && line[c+1] === '"') { field += '"'; c++; }
+            else if (ch === '"') { inQuote = false; }
+            else { field += ch; }
+          } else {
+            if (ch === '"') { inQuote = true; }
+            else if (ch === sep) { row.push(field); field = ''; }
+            else { field += ch; }
+          }
+        }
+        row.push(field);
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function handleExcel(file, screensOptions) {
+      var isCsv = /\.csv$/i.test(file.name);
+      if (isCsv) {
+        readFileAsText(file).then(function(text) {
+          var rows = parseCSVText(text);
+          sendExcelMessage(rows, screensOptions);
+        }).catch(function(err) {
+          setStatus(T('errorLabel') + ': ' + (err.message || T('couldNotRead')), true);
+          setGenerating(false);
+        });
+      } else {
+        if (typeof XLSX === 'undefined') {
+          setStatus(T('xlsxNotLoaded'), true);
+          setGenerating(false);
+          return;
+        }
+        readFileAsArrayBuffer(file).then(function(buf) {
+          var wb = XLSX.read(buf, { type: 'array' });
+          var rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1 });
+          sendExcelMessage(rows, screensOptions);
+        }).catch(function(err) {
+          setStatus(T('errorLabel') + ': ' + (err.message || T('couldNotRead')), true);
+          setGenerating(false);
+        });
+      }
+    }
+
+    function sendExcelMessage(rows, screensOptions) {
+      var aiChecked = useAIForExcel.checked;
+      parent.postMessage({
+        pluginMessage: {
+          type: 'excel',
+          rows: rows,
+          useAI: aiChecked,
+          apiKey: aiChecked ? (apiKeyInput.value.trim() || undefined) : undefined,
+          screensSource: (screensOptions && screensOptions.source) || 'none',
+          screensMode: (screensOptions && screensOptions.mode) || 'links',
+          includeScreenMatching: document.getElementById('optionScreenMatching').checked,
+          screenMatchingPrompt: screenMatchingPromptEl.value || undefined,
+          includeVisionAnnotations: document.getElementById('optionVisionAnnotations').checked,
+          visionPrompt: visionAnnotationsPromptEl.value || undefined
+        }
+      }, '*');
+    }
+
+    function handleMultipleTranscripts(files, options, jobStoryPrompt, aggregatePrompt, screensOptions) {
+      Promise.all(Array.from(files).map(function(f) { return readFileAsText(f); }))
+        .then(function(texts) {
+          parent.postMessage({
+            pluginMessage: {
+              type: 'aggregateTranscripts',
+              texts: texts,
+              apiKey: apiKeyInput.value.trim() || undefined,
+              includeDuration: options && options.includeDuration,
+              includeChannels: options && options.includeChannels,
+              includeLifecycle: options && options.includeLifecycle,
+              includeActivation: options && options.includeActivation,
+              includeProductMetrics: options && options.includeProductMetrics,
+              jobStoryPrompt: jobStoryPrompt || undefined,
+              aggregatePrompt: aggregatePrompt || undefined,
+              lifecyclePrompt: lifecyclePromptEl.value || undefined,
+              activationPrompt: activationPromptEl.value || undefined,
+              productMetricsPrompt: productMetricsPromptEl.value || undefined,
+              screensSource: (screensOptions && screensOptions.source) || 'none',
+              screensMode: (screensOptions && screensOptions.mode) || 'links',
+              includeScreenMatching: document.getElementById('optionScreenMatching').checked,
+              screenMatchingPrompt: screenMatchingPromptEl.value || undefined,
+              includeVisionAnnotations: document.getElementById('optionVisionAnnotations').checked,
+              visionPrompt: visionAnnotationsPromptEl.value || undefined
+            }
+          }, '*');
+        }).catch(function(err) {
+          setStatus(T('errorLabel') + ': ' + (err.message || T('couldNotReadFiles')), true);
+          setGenerating(false);
+        });
+    }
+
+    function handleTranscript(file, options, jobStoryPrompt, screensOptions) {
+      readFileAsText(file).then(function(text) {
+        parent.postMessage({
+          pluginMessage: {
+            type: 'transcript',
+            text: text,
+            apiKey: apiKeyInput.value.trim() || undefined,
+            includeDuration: options && options.includeDuration,
+            includeChannels: options && options.includeChannels,
+            includeLifecycle: options && options.includeLifecycle,
+            includeActivation: options && options.includeActivation,
+            includeProductMetrics: options && options.includeProductMetrics,
+            jobStoryPrompt: jobStoryPrompt || undefined,
+            lifecyclePrompt: lifecyclePromptEl.value || undefined,
+            activationPrompt: activationPromptEl.value || undefined,
+            productMetricsPrompt: productMetricsPromptEl.value || undefined,
+            screensSource: (screensOptions && screensOptions.source) || 'none',
+            screensMode: (screensOptions && screensOptions.mode) || 'links',
+            includeScreenMatching: document.getElementById('optionScreenMatching').checked,
+            screenMatchingPrompt: screenMatchingPromptEl.value || undefined,
+            includeVisionAnnotations: document.getElementById('optionVisionAnnotations').checked,
+            visionPrompt: visionAnnotationsPromptEl.value || undefined
+          }
+        }, '*');
+      }).catch(function(err) {
+        setStatus(T('errorLabel') + ': ' + (err.message || T('couldNotRead')), true);
+        setGenerating(false);
+      });
+    }
+
+    function readFileAsArrayBuffer(file) {
+      return new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function() { resolve(reader.result); };
+        reader.onerror = function() { reject(new Error(T('couldNotRead'))); };
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+    function readFileAsText(file) {
+      return new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function() { resolve(reader.result); };
+        reader.onerror = function() { reject(new Error(T('couldNotRead'))); };
+        reader.readAsText(file, 'UTF-8');
+      });
+    }
+
+    /* ─── Prompts tab logic ─── */
+    savePromptsBtn.addEventListener('click', function() {
+      parent.postMessage({
+        pluginMessage: {
+          type: 'savePrompts',
+          transcriptPrompt: transcriptPromptEl.value,
+          jobStoryPrompt: jobStoryPromptEl.value,
+          aggregatePrompt: aggregatePromptEl.value,
+          tablePrompt: tablePromptEl.value,
+          lifecyclePrompt: lifecyclePromptEl.value,
+          activationPrompt: activationPromptEl.value,
+          productMetricsPrompt: productMetricsPromptEl.value,
+          screenMatchingPrompt: screenMatchingPromptEl.value,
+          visionPrompt: visionAnnotationsPromptEl.value,
+          includeDuration: document.getElementById('optionDuration').checked,
+          includeChannels: document.getElementById('optionChannels').checked,
+          includeLifecycle: document.getElementById('optionLifecycle').checked,
+          includeActivation: document.getElementById('optionActivation').checked,
+          includeProductMetrics: document.getElementById('optionProductMetrics').checked,
+          includeScreenMatching: document.getElementById('optionScreenMatching').checked,
+          includeVisionAnnotations: document.getElementById('optionVisionAnnotations').checked
+        }
+      }, '*');
+      setPromptStatus(T('saved'), 'success');
+      setTimeout(function() { setPromptStatus(''); }, 2000);
+    });
+
+    resetPromptsBtn.addEventListener('click', function() {
+      transcriptPromptEl.value = defaultPromptsMap[currentLang].transcript;
+      jobStoryPromptEl.value = defaultPromptsMap[currentLang].jobStory;
+      aggregatePromptEl.value = defaultPromptsMap[currentLang].aggregate;
+      tablePromptEl.value = defaultPromptsMap[currentLang].table;
+      lifecyclePromptEl.value = defaultPromptsMap[currentLang].lifecycle;
+      activationPromptEl.value = defaultPromptsMap[currentLang].activation;
+      productMetricsPromptEl.value = defaultPromptsMap[currentLang].productMetrics;
+      screenMatchingPromptEl.value = defaultPromptsMap[currentLang].screenMatching;
+      visionAnnotationsPromptEl.value = defaultPromptsMap[currentLang].visionAnnotations;
+      document.getElementById('optionLifecycle').checked = false;
+      document.getElementById('optionActivation').checked = false;
+      document.getElementById('optionProductMetrics').checked = false;
+      document.getElementById('optionScreenMatching').checked = false;
+      document.getElementById('optionVisionAnnotations').checked = false;
+      updateVisionWrap();
+      parent.postMessage({
+        pluginMessage: {
+          type: 'savePrompts',
+          transcriptPrompt: defaultPromptsMap[currentLang].transcript,
+          jobStoryPrompt: defaultPromptsMap[currentLang].jobStory,
+          aggregatePrompt: defaultPromptsMap[currentLang].aggregate,
+          tablePrompt: defaultPromptsMap[currentLang].table,
+          lifecyclePrompt: defaultPromptsMap[currentLang].lifecycle,
+          activationPrompt: defaultPromptsMap[currentLang].activation,
+          productMetricsPrompt: defaultPromptsMap[currentLang].productMetrics,
+          screenMatchingPrompt: defaultPromptsMap[currentLang].screenMatching,
+          visionPrompt: defaultPromptsMap[currentLang].visionAnnotations,
+          includeLifecycle: false,
+          includeActivation: false,
+          includeProductMetrics: false,
+          includeScreenMatching: false,
+          includeVisionAnnotations: false
+        }
+      }, '*');
+      setPromptStatus(T('resetDone'), 'success');
+      setTimeout(function() { setPromptStatus(''); }, 2000);
+    });
+
+    /* ─── Message handler ─── */
+    onmessage = function(event) {
+      var msg = event.data.pluginMessage;
+      if (!msg) return;
+
+      if (msg.type === 'settingsRestored') {
+        if (msg.apiKey) apiKeyInput.value = msg.apiKey;
+        if (msg.transcriptPrompt) {
+          transcriptPromptEl.value = msg.transcriptPrompt;
+        }
+        if (msg.tablePrompt) {
+          tablePromptEl.value = msg.tablePrompt;
+        }
+        if (msg.jobStoryPrompt) {
+          jobStoryPromptEl.value = msg.jobStoryPrompt;
+        }
+        if (msg.aggregatePrompt) {
+          aggregatePromptEl.value = msg.aggregatePrompt;
+        }
+        if (typeof msg.includeDuration === 'boolean') {
+          document.getElementById('optionDuration').checked = msg.includeDuration;
+        }
+        if (typeof msg.includeChannels === 'boolean') {
+          document.getElementById('optionChannels').checked = msg.includeChannels;
+        }
+        if (typeof msg.includeLifecycle === 'boolean') {
+          document.getElementById('optionLifecycle').checked = msg.includeLifecycle;
+        }
+        if (typeof msg.includeActivation === 'boolean') {
+          document.getElementById('optionActivation').checked = msg.includeActivation;
+        }
+        if (typeof msg.includeProductMetrics === 'boolean') {
+          document.getElementById('optionProductMetrics').checked = msg.includeProductMetrics;
+        }
+        if (msg.lifecyclePrompt) {
+          lifecyclePromptEl.value = msg.lifecyclePrompt;
+        }
+        if (msg.activationPrompt) {
+          activationPromptEl.value = msg.activationPrompt;
+        }
+        if (msg.productMetricsPrompt) {
+          productMetricsPromptEl.value = msg.productMetricsPrompt;
+        }
+        if (typeof msg.includeScreenMatching === 'boolean') {
+          document.getElementById('optionScreenMatching').checked = msg.includeScreenMatching;
+          updatePngOnlyOptions();
+          updateVisionWrap();
+        }
+        if (msg.screenMatchingPrompt) {
+          screenMatchingPromptEl.value = msg.screenMatchingPrompt;
+        }
+        if (typeof msg.includeVisionAnnotations === 'boolean') {
+          document.getElementById('optionVisionAnnotations').checked = msg.includeVisionAnnotations;
+        }
+        if (msg.visionPrompt) {
+          visionAnnotationsPromptEl.value = msg.visionPrompt;
+        }
+        /* Re-apply language after restoring settings — stored prompts are
+           in their original language, so switch them if current lang differs */
+        if (currentLang !== 'ru') {
+          applyLanguage(currentLang);
+        }
+      }
+      if (msg.type === 'apiKeyRestored') {
+        if (msg.apiKey) apiKeyInput.value = msg.apiKey;
+      }
+      if (msg.type === 'status') {
+        setStatus(msg.text, msg.isError);
+      }
+      if (msg.type === 'done') {
+        setGenerating(false);
+        var wasCancelled = msg.error === 'Генерация отменена' || msg.error === 'Generation cancelled';
+        var doneText = msg.success ? T('cjmCreated') : (msg.error || T('errorLabel'));
+        setStatus(doneText, !msg.success && !wasCancelled);
+        if (msg.success) {
+          statusEl.className = 'status success';
+        }
+      }
+    };
+
+    updateUI();
+
+  } catch (err) {
+    document.getElementById('status').textContent = 'JS Error: ' + (err.message || err);
+    document.getElementById('status').style.color = 'red';
+  }
+})();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Сборка CJM",
+  "id": "excel-transcript-to-cjm",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.openai.com",
+      "https://docs.google.com"
+    ],
+    "reasoning": "Plugin uses OpenAI API to extract Customer Journey Map structure from interview transcripts."
+  }
+}

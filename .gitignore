@@ -1,5 +1,4 @@
 node_modules/
-plugin/
 .DS_Store
 *.zip
 *.log
