@@ -29,8 +29,6 @@ jobs:
           cd plugin && zip -r ../plugin.zip . && cd ..
 
       - name: Upload to release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: plugin.zip
+        run: gh release upload "${{ github.event.release.tag_name }}" plugin.zip --clobber
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
