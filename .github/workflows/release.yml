@@ -5,10 +5,12 @@ on:
     types: [published]
 
 permissions:
-  contents: write
+  contents: write  # Required for release uploads
 
 jobs:
   build:
+    permissions:
+      contents: write  # Explicit for gh release upload
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
