@@ -1,4 +1,5 @@
 node_modules/
+landing/
 plugin/
 .DS_Store
 *.zip
