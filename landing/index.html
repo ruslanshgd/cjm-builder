@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сборка CJM — Figma-плагин для создания Customer Journey Map с помощью AI</title>
+  <meta name="description" content="Бесплатный Figma-плагин, который превращает транскрипты интервью и таблицы в визуальные CJM прямо в Figma. Работает на OpenAI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══ Nav ═══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="dot"></span>
+      <span data-i18n="nav.logo">Сборка CJM</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features" data-i18n="nav.features">Возможности</a></li>
+      <li><a href="#modes" data-i18n="nav.modes">Режимы</a></li>
+      <li><a href="#settings" data-i18n="nav.settings">Настройки</a></li>
+      <li><a href="#start" data-i18n="nav.start">Начать</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="https://www.donationalerts.com/r/ruslan_uxui" target="_blank" rel="noopener" class="nav-btn nav-btn--donate" data-i18n="nav.donate">Поблагодарить</a>
+      <a href="#" class="nav-btn nav-btn--download" data-i18n="nav.download">Скачать</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge" data-i18n="hero.badge">Бесплатный плагин для Figma</div>
+    <h1 class="hero-title" data-i18n-html="hero.title">
+      Превращайте интервью<br>
+      в <span class="highlight">Customer Journey Map</span><br>
+      прямо в Figma
+    </h1>
+    <p class="subtitle" data-i18n="hero.subtitle">
+      Загрузите транскрипт или таблицу — AI проанализирует путь пользователя, 
+      извлечёт этапы, действия, мысли, эмоции и построит визуальную CJM 
+      с привязкой к вашим экранам.
+    </p>
+    <div class="hero-cta">
+      <a href="#" class="btn-primary">
+        <i data-lucide="download"></i>
+        <span data-i18n="hero.cta.install">Установить из Figma Community</span>
+      </a>
+      <a href="#start" class="btn-secondary" data-i18n="hero.cta.start">Как начать</a>
+    </div>
+
+    <div class="hero-image">
+      <button type="button" class="img-preview-trigger" data-src="images/cjm-done.png" data-srcset="images/cjm-done.png 1x, images/cjm-done@2x.png 2x" aria-label="Открыть в полном размере">
+        <img src="images/cjm-done.png" srcset="images/cjm-done.png 1x, images/cjm-done@2x.png 2x" alt="" loading="lazy">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Storytelling: Problem → What if ═══ -->
+<section class="storytelling">
+  <div class="container">
+    <p class="paragraph paragraph-large mb-6" data-i18n="story.problem1">Строить CJM вручную — долго. Хочется тратить время на идеи, а не на раскраску ячеек.</p>
+    <p class="paragraph paragraph-large mb-6" data-i18n="story.problem2">Транскрипты лежат в файлах. Таблицы — в Excel или Google. Карту собирают по крупицам.</p>
+    <p class="paragraph paragraph-large mb-6" data-i18n="story.problem3">А если транскрипт или таблица превращались в готовую карту за минуту?</p>
+    <p class="paragraph paragraph-large font-weight-600" data-i18n="story.whatif">Один клик — и CJM уже в Figma, с этапами, экранами и инсайтами.</p>
+  </div>
+</section>
+
+<!-- ═══ Features ═══ -->
+<section id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" data-i18n="features.label">Возможности</span>
+      <h2 data-i18n-html="features.title">Всё, что нужно для CJM —<br>в одном плагине</h2>
+      <p class="subtitle" data-i18n="features.subtitle">
+        Не нужно переключаться между инструментами. Загрузите данные, 
+        настройте анализ — и получите готовую карту пути клиента за минуту.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="file-text"></i></div>
+        <h3 data-i18n="features.transcripts.title">Транскрипты интервью</h3>
+        <p data-i18n="features.transcripts.desc">Загрузите .txt или .md файл с транскриптом — AI извлечёт этапы, действия, мысли, эмоции и цитаты пользователя.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="table"></i></div>
+        <h3 data-i18n="features.excel.title">Таблицы Excel и CSV</h3>
+        <p data-i18n="features.excel.desc">Готовая таблица с данными? Плагин распознает структуру и превратит её в визуальную CJM. Есть режим AI для «грязных» таблиц.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="link"></i></div>
+        <h3 data-i18n="features.gsheets.title">Google Таблицы</h3>
+        <p data-i18n="features.gsheets.desc">Вставьте ссылку на опубликованную Google-таблицу — плагин загрузит данные и построит карту.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="users"></i></div>
+        <h3 data-i18n="features.aggregation.title">Агрегация нескольких интервью</h3>
+        <p data-i18n="features.aggregation.desc">Загрузите несколько транскриптов — AI объединит инсайты в одну обобщённую CJM с Job Stories.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="layout-grid"></i></div>
+        <h3 data-i18n="features.screens.title">Привязка экранов из Figma</h3>
+        <p data-i18n="features.screens.desc">Выделите фреймы или секцию — плагин вставит ссылки или PNG-превью экранов под каждым этапом CJM.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="scan-eye"></i></div>
+        <h3 data-i18n="features.vision.title">Vision-аннотации</h3>
+        <p data-i18n="features.vision.desc">GPT-4o Vision анализирует скриншоты и расставляет аннотации с комментариями прямо на макетах.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="target"></i></div>
+        <h3 data-i18n="features.jobstory.title">Job Story (JTBD)</h3>
+        <p data-i18n="features.jobstory.desc">AI автоматически извлекает Job Stories в формате «When… I want to… So I can…» из каждого интервью.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="trending-up"></i></div>
+        <h3 data-i18n="features.analytics.title">Продуктовая аналитика</h3>
+        <p data-i18n="features.analytics.desc">Жизненный цикл, ABCDX-сегмент, активация, вовлечённость, метрики — дополнительные слои анализа.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i data-lucide="sliders-horizontal"></i></div>
+        <h3 data-i18n="features.prompts.title">Настраиваемые промпты</h3>
+        <p data-i18n="features.prompts.desc">Все системные промпты редактируемы — подстройте логику AI под свой продукт и задачу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="section-divider"></div></div>
+
+<!-- ═══ Modes ═══ -->
+<section id="modes">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" data-i18n="modes.label">Режимы экранов</span>
+      <h2 data-i18n="modes.title">Три способа показать экраны на CJM</h2>
+      <p class="subtitle" data-i18n="modes.subtitle">
+        Выберите, как связать дизайн-макеты с этапами пути пользователя — 
+        от простых ссылок до AI-аннотаций поверх скриншотов.
+      </p>
+    </div>
+
+    <div class="modes-grid">
+      <div class="mode-card">
+        <div class="mode-card-image">
+          <button type="button" class="img-preview-trigger" data-src="images/cjm-links.png" data-srcset="images/cjm-links.png 1x, images/cjm-links@2x.png 2x" aria-label="Открыть в полном размере">
+            <img src="images/cjm-links.png" srcset="images/cjm-links.png 1x, images/cjm-links@2x.png 2x" alt="" loading="lazy">
+          </button>
+        </div>
+        <div class="mode-card-body">
+          <div class="mode-tag" data-i18n="modes.links.tag">Ссылки</div>
+          <h3 data-i18n="modes.links.title">Ссылки на фреймы</h3>
+          <p data-i18n="modes.links.desc">Под каждым этапом — кликабельные ссылки на оригинальные фреймы в Figma. Лёгкий и компактный вариант.</p>
+        </div>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-image">
+          <button type="button" class="img-preview-trigger" data-src="images/cjm-preview.png" data-srcset="images/cjm-preview.png 1x, images/cjm-preview@2x.png 2x" aria-label="Открыть в полном размере">
+            <img src="images/cjm-preview.png" srcset="images/cjm-preview.png 1x, images/cjm-preview@2x.png 2x" alt="" loading="lazy">
+          </button>
+        </div>
+        <div class="mode-card-body">
+          <div class="mode-tag" data-i18n="modes.png.tag">Превью (PNG)</div>
+          <h3 data-i18n="modes.png.title">PNG-превью + AI-сопоставление</h3>
+          <p data-i18n="modes.png.desc">AI анализирует названия фреймов и этапов, сопоставляет их по смыслу. Под каждым этапом — масштабированные скриншоты экранов.</p>
+        </div>
+      </div>
+
+      <div class="mode-card">
+        <div class="mode-card-image">
+          <button type="button" class="img-preview-trigger" data-src="images/cjm-annotation.png" data-srcset="images/cjm-annotation.png 1x, images/cjm-annotation@2x.png 2x" aria-label="Открыть в полном размере">
+            <img src="images/cjm-annotation.png" srcset="images/cjm-annotation.png 1x, images/cjm-annotation@2x.png 2x" alt="" loading="lazy">
+          </button>
+        </div>
+        <div class="mode-card-body">
+          <div class="mode-tag" data-i18n="modes.vision.tag">Vision-аннотации</div>
+          <h3 data-i18n="modes.vision.title">AI-комментарии на макетах</h3>
+          <p data-i18n="modes.vision.desc">GPT-4o Vision смотрит на каждый экран + транскрипт и расставляет аннотации со стрелками к конкретным элементам интерфейса.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="section-divider"></div></div>
+
+<!-- ═══ Plugin UI ═══ -->
+<section id="settings">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" data-i18n="settings.label">Интерфейс плагина</span>
+      <h2 data-i18n-html="settings.title">Простые настройки,<br>мощный результат</h2>
+      <p class="subtitle" data-i18n="settings.subtitle">
+        Две вкладки: «Создание» для запуска генерации и «Промпты» для тонкой настройки поведения AI.
+      </p>
+    </div>
+
+    <!-- Tab 1: Creation -->
+    <div class="showcase-row" style="margin-bottom: 80px;">
+      <div class="showcase-text">
+        <span class="section-label" data-i18n="settings.tab1.label">Вкладка «Создание»</span>
+        <h3 data-i18n="settings.tab1.title">Загрузите данные и выберите настройки</h3>
+        <p data-i18n="settings.tab1.desc">
+          Выберите источник — файл (xlsx, csv, txt, md) или Google Таблица. 
+          Укажите, откуда брать экраны и в каком режиме их показывать.
+        </p>
+        <ul class="settings-list">
+          <li data-i18n="settings.tab1.li1">Автоматическое определение типа файла (таблица или транскрипт)</li>
+          <li data-i18n="settings.tab1.li2">Несколько файлов .txt/.md → агрегированная CJM</li>
+          <li data-i18n="settings.tab1.li3">Экраны: из выделения, из Section или со страницы</li>
+          <li data-i18n="settings.tab1.li4">Режим экранов: ссылки или PNG-превью</li>
+          <li data-i18n="settings.tab1.li5">AI-сопоставление экранов с этапами по смыслу</li>
+          <li data-i18n="settings.tab1.li6">Vision-аннотации на скриншотах (GPT-4o)</li>
+          <li data-i18n="settings.tab1.li7">Кнопка «Отменить» для остановки генерации</li>
+        </ul>
+      </div>
+      <div class="showcase-image">
+        <button type="button" class="img-preview-trigger img-plugin" data-src-ru="images/plugin-create-ru.png" data-src-en="images/plugin-create-en.png" data-srcset-ru="images/plugin-create-ru.png 1x, images/plugin-create-ru@2x.png 2x" data-srcset-en="images/plugin-create-en.png 1x, images/plugin-create-en@2x.png 2x" aria-label="Открыть в полном размере">
+          <img src="images/plugin-create-ru.png" srcset="images/plugin-create-ru.png 1x, images/plugin-create-ru@2x.png 2x" alt="" loading="lazy">
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab 2: Prompts -->
+    <div class="showcase-row reverse">
+      <div class="showcase-text">
+        <span class="section-label" data-i18n="settings.tab2.label">Вкладка «Промпты»</span>
+        <h3 data-i18n="settings.tab2.title">Полный контроль над логикой AI</h3>
+        <p data-i18n="settings.tab2.desc">
+          Все системные промпты редактируемы. Включайте и отключайте 
+          дополнительные слои анализа чекбоксами.
+        </p>
+        <ul class="settings-list">
+          <li data-i18n="settings.tab2.li1">Промпт для транскриптов — что извлекать из интервью</li>
+          <li data-i18n="settings.tab2.li2">Промпт для Job Story (JTBD фреймворк)</li>
+          <li data-i18n="settings.tab2.li3">Промпт для агрегации нескольких интервью</li>
+          <li data-i18n="settings.tab2.li4">Опции: длительность этапов, каналы и переходы</li>
+          <li data-i18n="settings.tab2.li5">Продуктовая аналитика: жизненный цикл, ABCDX-сегмент</li>
+          <li data-i18n="settings.tab2.li6">Активация, вовлечённость, adoption</li>
+          <li data-i18n="settings.tab2.li7">Метрики продукта и инсайты</li>
+          <li data-i18n="settings.tab2.li8">Промпт для сопоставления экранов и Vision-аннотаций</li>
+        </ul>
+      </div>
+      <div class="showcase-image">
+        <button type="button" class="img-preview-trigger img-plugin" data-src-ru="images/plugin-prompts-ru.png" data-src-en="images/plugin-prompts-en.png" data-srcset-ru="images/plugin-prompts-ru.png 1x, images/plugin-prompts-ru@2x.png 2x" data-srcset-en="images/plugin-prompts-en.png 1x, images/plugin-prompts-en@2x.png 2x" aria-label="Открыть в полном размере">
+          <img src="images/plugin-prompts-ru.png" srcset="images/plugin-prompts-ru.png 1x, images/plugin-prompts-ru@2x.png 2x" alt="" loading="lazy">
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="section-divider"></div></div>
+
+<!-- ═══ How it works ═══ -->
+<section id="start">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" data-i18n="start.label">Начало работы</span>
+      <h2 data-i18n="start.title">Четыре шага до готовой CJM</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <h3 data-i18n="start.step1.title">Получите API-ключ</h3>
+        <p data-i18n-html="start.step1.desc">Зарегистрируйтесь на <a href="https://platform.openai.com" target="_blank">platform.openai.com</a>, пополните баланс на $2–5 и создайте API-ключ.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="start.step2.title">Установите плагин</h3>
+        <p data-i18n="start.step2.desc">Найдите «Сборка CJM» в Figma Community и нажмите Install. Плагин появится в меню Plugins.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="start.step3.title">Загрузите данные</h3>
+        <p data-i18n="start.step3.desc">Транскрипт интервью (.txt, .md), таблицу (.xlsx, .csv) или ссылку на Google Таблицу. Выделите фреймы для привязки экранов.</p>
+      </div>
+      <div class="step">
+        <h3 data-i18n="start.step4.title">Получите CJM</h3>
+        <p data-i18n="start.step4.desc">Нажмите «Создать CJM» — через 30–60 секунд готовая карта появится на канвасе Figma.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 64px;">
+      <div class="callout-icon"><i data-lucide="key"></i></div>
+      <div class="callout-body">
+        <h3 data-i18n="start.callout.title">Про API-ключ и стоимость</h3>
+        <p data-i18n-html="start.callout.desc">
+          Плагин <strong>бесплатный</strong>. Для работы AI вам нужен собственный API-ключ OpenAI.
+          Одна генерация CJM из транскрипта стоит примерно <code>$0.02–0.05</code> (GPT-4o-mini).
+          Vision-аннотации используют GPT-4o — около <code>$0.01–0.02</code> за экран.
+          Пополнения на <strong>$2–5</strong> хватит на десятки генераций.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="section-divider"></div></div>
+
+<!-- ═══ Examples showcase ═══ -->
+<section id="examples">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" data-i18n="examples.label">Примеры</span>
+      <h2 data-i18n="examples.title">Как выглядит результат</h2>
+      <p class="subtitle" data-i18n="examples.subtitle">
+        Ниже — примеры CJM, сгенерированных плагином из реальных транскриптов интервью 
+        с различными настройками.
+      </p>
+    </div>
+
+    <!-- Example 1: Базовая CJM -->
+    <div class="showcase-row" style="margin-bottom: 80px;">
+      <div class="showcase-image">
+        <button type="button" class="img-preview-trigger" data-src="images/cjm-done.png" data-srcset="images/cjm-done.png 1x, images/cjm-done@2x.png 2x" aria-label="Открыть в полном размере">
+          <img src="images/cjm-done.png" srcset="images/cjm-done.png 1x, images/cjm-done@2x.png 2x" alt="" loading="lazy">
+        </button>
+      </div>
+      <div class="showcase-text">
+        <h3 data-i18n="examples.ex1.title">Базовая CJM из транскрипта</h3>
+        <p data-i18n="examples.ex1.desc">
+          Один транскрипт интервью → полная карта пути с этапами, 
+          действиями, touchpoints, мыслями, эмоциями, цитатами, 
+          метриками и гипотезами. Job Story в шапке.
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 2: CJM с продуктовой аналитикой -->
+    <div class="showcase-row reverse" style="margin-bottom: 80px;">
+      <div class="showcase-image">
+        <button type="button" class="img-preview-trigger" data-src="images/cjm-product-analysis.png" data-srcset="images/cjm-product-analysis.png 1x, images/cjm-product-analysis@2x.png 2x" aria-label="Открыть в полном размере">
+          <img src="images/cjm-product-analysis.png" srcset="images/cjm-product-analysis.png 1x, images/cjm-product-analysis@2x.png 2x" alt="" loading="lazy">
+        </button>
+      </div>
+      <div class="showcase-text">
+        <h3 data-i18n="examples.ex2.title">CJM с продуктовой аналитикой</h3>
+        <p data-i18n="examples.ex2.desc">
+          Включите чекбоксы продуктовой аналитики — AI определит 
+          этап жизненного цикла, ABCDX-сегмент, точку активации 
+          и предложит продуктовые инсайты.
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 3: Сценарий с PNG-экранами -->
+    <div class="showcase-row" style="margin-bottom: 80px;">
+      <div class="showcase-image">
+        <button type="button" class="img-preview-trigger" data-src="images/cjm-preview.png" data-srcset="images/cjm-preview.png 1x, images/cjm-preview@2x.png 2x" aria-label="Открыть в полном размере">
+          <img src="images/cjm-preview.png" srcset="images/cjm-preview.png 1x, images/cjm-preview@2x.png 2x" alt="" loading="lazy">
+        </button>
+      </div>
+      <div class="showcase-text">
+        <h3 data-i18n="examples.ex3.title">Сценарий с PNG-экранами</h3>
+        <p data-i18n="examples.ex3.desc">
+          Выделите фреймы или секцию, выберите «Превью (PNG)» и включите 
+          AI-сопоставление — экраны автоматически распределятся по этапам CJM 
+          с текстовыми аннотациями.
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 4: Vision-аннотации -->
+    <div class="showcase-row reverse">
+      <div class="showcase-image">
+        <button type="button" class="img-preview-trigger" data-src="images/cjm-annotation.png" data-srcset="images/cjm-annotation.png 1x, images/cjm-annotation@2x.png 2x" aria-label="Открыть в полном размере">
+          <img src="images/cjm-annotation.png" srcset="images/cjm-annotation.png 1x, images/cjm-annotation@2x.png 2x" alt="" loading="lazy">
+        </button>
+      </div>
+      <div class="showcase-text">
+        <h3 data-i18n="examples.ex4.title">Vision-аннотации на экранах</h3>
+        <p data-i18n="examples.ex4.desc">
+          GPT-4o Vision анализирует каждый PNG-скриншот вместе с транскриптом 
+          и контекстом этапа. Результат — карточки с комментариями слева от экрана 
+          и стрелки к конкретным элементам интерфейса.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Image modal (lightbox) ═══ -->
+<div id="img-modal" class="img-modal" role="dialog" aria-modal="true" aria-label="Просмотр изображения" hidden>
+  <button type="button" class="img-modal-close" aria-label="Закрыть">&times;</button>
+  <div class="img-modal-backdrop"></div>
+  <div class="img-modal-content">
+    <img src="" srcset="" alt="" class="img-modal-img">
+  </div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="footer">
+  <div class="container">
+    <p data-i18n="footer.text">Сборка CJM — бесплатный Figma-плагин. Работает на OpenAI API.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -33,6 +33,10 @@ npm run build
 npm run watch
 ```
 
+### GitHub Pages (лендинг)
+
+Лендинг — папка `landing/`. Workflow `.github/workflows/pages.yml` при пуше в `main` деплоит его на GitHub Pages. В репо: Settings → Pages → Source: **GitHub Actions**. Сайт: `https://username.github.io/cjm-builder/`
+
 ---
 
 ## EN
@@ -63,3 +67,7 @@ Output — folder `plugin/` with `manifest.json`, `code.js`, `ui.html`.
 ```bash
 npm run watch
 ```
+
+### GitHub Pages (landing)
+
+Landing lives in `landing/`. Workflow `.github/workflows/pages.yml` deploys it on push to `main`. In repo: Settings → Pages → Source: **GitHub Actions**. Site: `https://username.github.io/cjm-builder/`
