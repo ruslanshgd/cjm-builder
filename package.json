@@ -1,0 +1,17 @@
+{
+  "name": "text2cjm",
+  "version": "1.0.0",
+  "description": "Figma plugin: Excel/Transcript to Customer Journey Map",
+  "scripts": {
+    "build": "mkdir -p plugin && cp node_modules/xlsx/dist/xlsx.full.min.js xlsx.full.min.js && cp node_modules/xlsx/dist/xlsx.full.min.js plugin/xlsx.full.min.js && cp ui.html plugin/ui.html && esbuild src/code.ts --bundle --format=iife --platform=browser --target=es2017 --outfile=plugin/code.js && node -e \"var m=JSON.parse(require('fs').readFileSync('manifest.json','utf8'));m.main='code.js';m.ui='ui.html';require('fs').writeFileSync('plugin/manifest.json',JSON.stringify(m,null,2))\" && echo 'Build → plugin/'",
+    "watch": "mkdir -p plugin && cp node_modules/xlsx/dist/xlsx.full.min.js xlsx.full.min.js && cp node_modules/xlsx/dist/xlsx.full.min.js plugin/xlsx.full.min.js && cp ui.html plugin/ui.html && esbuild src/code.ts --bundle --format=iife --platform=browser --target=es2017 --outfile=plugin/code.js --watch"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.102.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
