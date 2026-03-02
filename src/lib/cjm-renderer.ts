@@ -368,7 +368,7 @@ export async function renderCJM(data: CJMData, framesConfig?: FramesConfig): Pro
 
   // Canvas
   const canvas = figma.createFrame();
-  canvas.name = "CJM — Сборка CJM";
+  canvas.name = "CJM — ИзиПуть";
   canvas.layoutMode = "VERTICAL";
   canvas.primaryAxisSizingMode = "AUTO";
   canvas.counterAxisSizingMode = "AUTO";

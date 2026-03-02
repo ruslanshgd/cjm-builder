@@ -1,6 +1,7 @@
 {
-  "name": "Сборка CJM",
-  "id": "excel-transcript-to-cjm",
+  "name": "ИзиПуть",
+  "id": "1607333193891663282",
+  "documentAccess": "dynamic-page",
   "api": "1.0.0",
   "main": "plugin/code.js",
   "ui": "plugin/ui.html",

@@ -1,4 +1,4 @@
-# CJM Builder / Сборка CJM — Figma Plugin
+# CJM Builder / ИзиПуть — Figma Plugin
 
 **[RU](#ru)** | **[EN](#en)**
 

@@ -1,6 +1,6 @@
 var I18N = {
   ru: {
-    'nav.logo': 'Сборка CJM',
+    'nav.logo': 'ИзиПуть',
     'nav.features': 'Возможности',
     'nav.modes': 'Режимы',
     'nav.settings': 'Настройки',
@@ -96,7 +96,7 @@ var I18N = {
     'start.step1.title': 'Получите API-ключ',
     'start.step1.desc': 'Зарегистрируйтесь на <a href="https://platform.openai.com" target="_blank">platform.openai.com</a>, пополните баланс на $2–5 и создайте API-ключ.',
     'start.step2.title': 'Установите плагин',
-    'start.step2.desc': 'Найдите «Сборка CJM» в Figma Community и нажмите Install. Плагин появится в меню Plugins.',
+    'start.step2.desc': 'Найдите «ИзиПуть» в Figma Community и нажмите Install. Плагин появится в меню Plugins.',
     'start.step3.title': 'Загрузите данные',
     'start.step3.desc': 'Транскрипт интервью (.txt, .md), таблицу (.xlsx, .csv) или ссылку на Google Таблицу. Выделите фреймы для привязки экранов.',
     'start.step4.title': 'Получите CJM',
@@ -124,7 +124,7 @@ var I18N = {
     'examples.ex4.title': 'Vision-аннотации на экранах',
     'examples.ex4.desc': 'GPT-4o Vision анализирует каждый PNG-скриншот вместе с транскриптом и контекстом этапа. Результат — карточки с комментариями слева от экрана и стрелки к конкретным элементам интерфейса.',
 
-    'footer.text': 'Сборка CJM — бесплатный Figma-плагин. Работает на OpenAI API.'
+    'footer.text': 'ИзиПуть — бесплатный Figma-плагин. Работает на OpenAI API.'
   },
 
   en: {
